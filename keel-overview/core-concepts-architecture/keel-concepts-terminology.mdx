@@ -1,0 +1,191 @@
+---
+title: "Core Concepts & Terminology"
+description: "Learn the essential concepts for working with keel: process list, PID, user filtering, modes (such as showing connections or regular processes), and the ncurses interface. Understand the 'highlight/killing' workflow, and what 'modes' mean in practice."
+---
+
+# Core Concepts & Terminology
+
+Welcome to the heart of keel's user experience. This page unpacks the essential concepts and terminology you need to fully leverage keel for efficient process management and network connection monitoring. By understanding these core ideas, you'll confidently navigate keel’s terminal interface, maximize your productivity, and streamline your workflow.
+
+---
+
+## Getting to Know the Key Concepts
+
+### Process List & PID
+At its core, keel presents you with a clear, interactive list of running system processes. Each process is uniquely identified by its **PID (Process Identifier)**, a crucial number you'll use to track and manage processes quickly.
+
+- **Process List**: Displays active processes owned by a specified user, or all users depending on your mode and settings.
+- **PID**: The unique system number associated with each process, used to perform actions such as termination.
+
+Imagine you're troubleshooting a high CPU usage issue—you'll scan this list, find the suspect process by its name, note the PID, and then act swiftly.
+
+### User Filtering
+Keel allows you to filter the displayed processes based on user ownership easily. You can specify a username at startup or switch users dynamically during your session.
+
+- Filters your view to only processes owned by the targeted user, decluttering the list.
+- Empowers multi-user systems management where isolating user processes is critical.
+
+For example, if you want to inspect processes owned by "alice", you start keel with `-u alice`, and the interface lists only those processes, enabling targeted management.
+
+### Modes: 'Regular' vs. 'Connections'
+Keel operates in distinct modes that determine what you see and interact with:
+
+- **Regular Mode**: Shows the typical list of processes owned by the selected user.
+- **Connections Mode**: Displays open network connections (TCP, UDP, UNIX sockets) tied to processes.
+
+Switching modes lets you pivot between process management and network connection oversight without leaving the tool, simplifying complex monitoring tasks.
+
+For instance, security teams can use Connections Mode to quickly identify and terminate suspicious network connections.
+
+### The ncurses Interface
+Keel leverages a text-based interface built with **ncurses**, delivering a responsive, keyboard-driven UI:
+
+- Interactive process list with highlighted selection.
+- Keyboard controls for navigation (arrow keys) and actions (Enter to kill).
+- Real-time feedback with titles and dynamic content.
+
+This interface blends simplicity with power, letting you focus on tasks without GUI distractions or multiple windows.
+
+---
+
+## The "Highlight and Kill" Workflow
+
+One of keel’s standout user flows is the **highlight and kill** process:
+
+1. **Navigate the list** with arrow keys to highlight the target process or connection.
+2. **Press Enter** to immediately terminate the highlighted item.
+3. The interface updates dynamically, removing the killed process and adjusting the list.
+
+This streamlined workflow reduces cognitive overhead and operational delay, enabling rapid responses—a critical advantage when managing systems under pressure.
+
+### Practical Example
+Suppose you notice a suspicious process:
+
+```bash
+python3 keel.py -u alice -m regular
+```
+
+- You scroll through Alice’s processes.
+- Highlight the suspicious process by moving the cursor over it.
+- Press Enter to kill it instantly.
+
+The process disappears from the list immediately, confirming success without additional prompts.
+
+### Tips for Smooth Operation
+- Use the arrow keys for precise navigation.
+- If the process list is long, keel automatically scrolls content to keep your selection visible.
+- Press `q` any time to exit.
+
+---
+
+## Understanding Modes in Practice
+
+### Regular Mode
+- Default view showing processes owned by the selected user.
+- Ideal for general process management and termination tasks.
+
+### Connections Mode
+- Focuses on active network connections of various types including TCP and UDP.
+- Useful for identifying and terminating unwanted or malicious network activity.
+
+You start keel specifying mode via the `-m` argument:
+
+```bash
+python3 keel.py -u root -m connections
+```
+
+This command presents all active network connections under root's control.
+
+### Dynamic Mode and User Switching
+Though full dynamic mode/user switching is under development, keel lays the groundwork for you to change modes or users on the fly using keyboard input (`m` for mode, `u` for user). This promises even greater flexibility to adapt your view as your troubleshooting evolves.
+
+---
+
+## Summary of Key Terms
+
+| Term              | Description                                                |
+|-------------------|------------------------------------------------------------|
+| **PID**           | Unique process identifier used to manage processes.        |
+| **User Filtering** | Limiting displayed processes to a specific user's tasks.   |
+| **Regular Mode**   | View showing the list of system processes.                  |
+| **Connections Mode** | View displaying active network connections.               |
+| **ncurses Interface** | Keyboard-driven text UI used by keel.                     |
+| **Highlight/Kill** | Workflow of selecting and terminating a process.            |
+
+---
+
+## Troubleshooting Common Issues
+
+<AccordionGroup title="Troubleshooting Tips for Core Concepts">  
+<Accordion title="Process Does Not Appear in List">  
+- Verify the username filter is correct; use root or the exact username.
+- Confirm the process is currently running via system tools.
+- Check if you are in the correct mode (regular mode for typical processes).
+</Accordion>  
+<Accordion title="Cannot Kill a Process">  
+- Ensure you have the necessary permissions to kill the process.
+- Double-check the PID belongs to a real process (it might have ended already).
+- Avoid trying to kill keel’s own process to prevent runtime errors.
+</Accordion>  
+<Accordion title="Switching Modes or Users Does Not Respond">  
+- Dynamic switching is under development.
+- Currently, set mode and user at startup with the `-m` and `-u` arguments.
+</Accordion>  
+</AccordionGroup>
+
+---
+
+## Next Steps: Moving Beyond Concepts
+Now that you understand keel’s foundational concepts, you’re ready to put it into action:
+
+- [Installation & Dependencies](../integration-getting-started/installation-dependencies) details how to get keel running.
+- Explore the [Architecture Overview](../core-concepts-architecture/architecture-diagram) to see how core components interact.
+- Learn the [Quick Feature Overview](../core-concepts-architecture/key-features-preview) to discover all capabilities.
+- Jump ahead to [Getting Started Guides](../../getting-started/setup-installation/prerequisites-requirements) for setup and initial run instructions.
+
+Together, these pages will guide you from fundamental understanding to confident usage of keel in your systems.
+
+---
+
+_For full source and development updates, visit the [GitHub repository](https://github.com/modelorona/keel)._
+
+
+---
+
+### Additional Code Example: Starting keel
+
+```bash
+# Run keel for user 'alice' in regular process mode
+python3 keel.py -u alice -m regular
+
+# Run keel for root user monitoring network connections
+python3 keel.py -u root -m connections
+```
+
+---
+
+### Keyboard Shortcuts
+
+| Key           | Action                                    |
+|---------------|-------------------------------------------|
+| Arrow Up/Down | Navigate process or connection list      |
+| Enter         | Kill highlighted process/connection       |
+| q             | Exit keel                                 |
+| m (future)    | Switch mode (under development)           |
+| u (future)    | Change user filter (under development)    |
+
+---
+
+You are now equipped with the essential terminology and user flows to confidently explore and utilize keel’s critical features.
+
+---
+
+# References
+- [keel Overview: What is keel?](../introduction-and-value/what-is-keel)
+- [Target Audience & Use Cases](../introduction-and-value/target-audience-use-cases)
+- [Product Value & Key Benefits](../introduction-and-value/why-use-keel)
+- [Installation & Dependencies](../integration-getting-started/installation-dependencies)
+- [Architecture Overview](../core-concepts-architecture/architecture-diagram)
+- [Quick Feature Overview](../core-concepts-architecture/key-features-preview)
+
+---

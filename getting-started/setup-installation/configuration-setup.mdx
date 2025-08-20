@@ -1,0 +1,252 @@
+---
+title: "Configuration & Initial Setup"
+description: "Learn how to configure keel for first use, including invoking the main program with required parameters (-u for username, -m for mode), viewing usage help, and understanding any initial options needed for a successful run."
+---
+
+# Configuration & Initial Setup
+
+Welcome to the initial configuration and setup guide for **keel**. This page will walk you through how to configure keel for its first use — from invoking the main program with the required parameters to understanding the modes and options available that enable a successful runtime experience.
+
+---
+
+## 1. Understanding Key Setup Parameters
+
+Keel depends on a simple but essential command-line interface that requires two parameters every time you run the program:
+
+- `-u` or `--username`: Specify the username whose processes or connections you want to manage. If this is omitted or invalid, `root` will be used by default, but using a real user account ensures expected behavior.
+
+- `-m` or `--mode`: Choose the mode in which keel operates. There are two modes:
+  - `regular`: Lists system processes owned by the specified user
+  - `connections`: Shows open network connections
+
+Example:
+
+```bash
+python3 keel.py -u alice -m regular
+```
+
+This starts keel displaying processes owned by user 'alice' in regular mode.
+
+### Why these parameters are important
+
+*Username filtering* enables focused visibility and control, preventing noise from unrelated users’ processes. *Mode selection* lets you toggle between monitoring traditional system processes and active network connections — two critical aspects of system defense.
+
+---
+
+## 2. Invoking keel with Required Parameters
+
+Follow these steps to correctly start keel:
+
+<Steps>
+<Step title="Open your terminal">
+Start your preferred terminal application. Ensure you have Python 3 installed and accessible.
+</Step>
+<Step title="Navigate to the keel installation folder or confirm keel is installed via pip">
+
+- If installed through pip, you can run keel from anywhere by referencing the installation directory or calling the script directly.
+- If running from source, navigate to the folder containing `keel.py`.
+
+</Step>
+<Step title="Run keel with flags">
+Execute the command with both `-u` (username) and `-m` (mode) flags. For example:
+
+```bash
+python3 keel.py -u root -m connections
+```
+
+This will start keel showing all network connections for the root user.
+
+</Step>
+<Step title="Access usage help">
+If you’re unsure about the parameters or want to check valid usage, run:
+
+```bash
+python3 keel.py -h
+```
+
+This displays the help text with all arguments and descriptions.
+
+</Step>
+</Steps>
+
+<Note>
+Omitting either required flag will cause keel to refuse to run, signaling a missing argument error.
+</Note>
+
+---
+
+## 3. Understanding Modes and Username Behavior
+
+### Modes Explained
+
+- **regular mode** — Displays all system processes owned by the specified user.
+- **connections mode** — Shows all open network connections (TCP, UDP, etc.) for the specified user.
+
+Keel defaults to regular mode if `regular` is explicitly provided. The mode influences what list you see and can act upon.
+
+### Username Handling
+
+- The username passed to `-u` must exist on your system; keel attempts to filter processes/connections accordingly.
+- If you specify a username that does not exist or omit the username, keel will default to `root`.
+- Using a real username helps you target the exact set of processes or connections you want to manage.
+
+<Tip>
+When testing keel, try `root` for full system access or your own username to avoid permission issues.
+</Tip>
+
+---
+
+## 4. Example Invocation and Expected Behavior
+
+Run keel as follows:
+
+```bash
+python3 keel.py -u modelorona -m regular
+```
+
+- This opens the terminal UI, listing all system processes owned by 'modelorona'.
+- Use the arrow keys to navigate the list.
+- Press `Enter` to kill the selected process.
+- Press `q` to quit the program.
+
+If you run:
+
+```bash
+python3 keel.py -u root -m connections
+```
+
+- You will see active open connections associated with the root user.
+- You can select and close connections similarly, improving your control over network traffic.
+
+<Check>
+The title bar always shows your current user and mode, confirming your setup.
+</Check>
+
+---
+
+## 5. Viewing Usage Help and Valid Options
+
+To review the program’s invocation options at any time:
+
+```bash
+python3 keel.py -h
+```
+
+This command displays:
+
+- The required `-u` / `--username` argument and its description
+- The required `-m` / `--mode` argument and allowed values (`connections`, `regular`)
+
+Example output snippet:
+
+```
+usage: keel.py [-h] -u USERNAME -m {connections,regular}
+
+Kill processes easily.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -u USERNAME, --username USERNAME
+                        specify a specific username or root will be used by default. problems if user is not real
+  -m {connections,regular}, --mode {connections,regular}
+                        select the mode to start out with. default is regular
+```
+
+---
+
+## 6. Troubleshooting Common Setup Issues
+
+<AccordionGroup title="Common Setup Issues">
+<Accordion title="Error: missing required argument: -u/--username or -m/--mode">
+Ensure you provide both arguments exactly when running keel. Running without the required flags will generate an error.
+
+Example:
+
+```bash
+python3 keel.py -m regular
+```
+
+will fail because `-u` is missing.
+</Accordion>
+
+<Accordion title="Processes or connections not displaying">
+- Verify the username is valid on your system.
+- Confirm you have the necessary permissions to view processes/connections.
+- For some users, permissions may restrict viewing system-wide details.
+</Accordion>
+
+<Accordion title="Program closes immediately or shows empty screen">
+- Ensure you specified a valid mode.
+- If no processes or connections exist for the given user and mode, the UI will immediately exit.
+- Try using `root` or another real user.
+</Accordion>
+
+<Accordion title="Keel cannot kill certain processes">
+- Some processes are protected or owned by other users/privileges.
+- The include of process ownership filtering helps avoid permission errors.
+- Killing system processes may require root privileges.
+</Accordion>
+</AccordionGroup>
+
+<Tip>
+Run keel with elevated permissions (`sudo`) if you need full access, but only do so cautiously.
+</Tip>
+
+---
+
+## 7. Next Steps After Configuration
+
+Once you've successfully configured keel and run your first session:
+
+- Explore the interactive terminal UI features such as process selection and killing.
+- Learn how to switch between modes during use (planned feature).
+- Review the [First Successful Run](../first-run-validation/first-successful-run) documentation to confirm your environment.
+- Check [Troubleshooting Common Issues](../first-run-validation/troubleshooting-common-issues) if you encounter problems.
+
+---
+
+## Additional Resources
+
+- [Installation & Dependencies](../../keel-overview/integration-getting-started/installation-dependencies) • Learn how to install keel and its dependencies.
+- [Core Concepts & Terminology](../../keel-overview/core-concepts-architecture/keel-concepts-terminology) • Understand how keel works and key concepts.
+- [Guides for Advanced Usage](../../guides/advanced-usage) • Learn how to filter processes, switch modes, and common defensive scenarios.
+
+---
+
+## Summary
+This page centered on configuring keel by correctly invoking it with the necessary parameters: username (`-u`) and mode (`-m`). Users learned how to start keel, the importance of these parameters, examples of usage, how to interpret the program's usage help, and key troubleshooting points for a smooth setup experience.
+
+Start keel confidently knowing exactly what each option does and how to get the terminal UI displaying your target process or connection lists.
+
+
+---
+
+For source code, usage examples, and active development, visit the official GitHub repository:
+
+[https://github.com/modelorona/keel](https://github.com/modelorona/keel)
+
+---
+
+### Code snippet summary from keel.py (main execution flow):
+
+```python
+import argparse
+
+parser = argparse.ArgumentParser(description='Kill processes easily.')
+
+parser.add_argument('-u', '--username', type=str, required=True, help='specify a specific username or root will be used by default. problems if user is not real')
+parser.add_argument('-m', '--mode', type=str, choices=['connections', 'regular'], required=True, help='select the mode to start out with. default is regular')
+
+args = parser.parse_args()
+
+username = args.username
+mode = args.mode
+
+ui = TerminalUI()
+ui.setup(username, mode)
+start(ui)
+```
+
+This clearly shows the required parameters and the UI setup that follows.
+
+---

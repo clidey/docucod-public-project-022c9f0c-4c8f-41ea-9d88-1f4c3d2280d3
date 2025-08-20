@@ -1,0 +1,171 @@
+---
+title: "Viewing and Navigating Processes"
+description: "Step-by-step instructions for launching keel, navigating the UI, interpreting the displayed process list, and understanding PID information. Ideal for users who want immediate visibility into active system processes from the terminal interface."
+---
+
+# Viewing and Navigating Processes
+
+This guide provides step-by-step instructions to help you launch keel, effectively navigate its terminal user interface (UI), and interpret the process list that keel displays. It is designed for users who want immediate, actionable visibility into active system processes using a clear and interactive terminal tool.
+
+---
+
+## 1. Workflow Overview
+
+- **Task Description**: Learn how to start keel with required parameters and navigate the terminal-based UI to view live system processes and identify critical details like PID and process name.
+- **Prerequisites**:
+  - keel installed and accessible (see [Installation & Dependencies](../keel-overview/integration-getting-started/installation-dependencies))
+  - Python 3 environment
+  - Basic terminal familiarity
+  - Correct knowledge of target username (optional; defaults to root)
+  - Mode choice (regular processes or network connections)
+- **Expected Outcome**: Confidently launch keel, navigate through the list of processes, identify processes by PID and name, and prepare for actions like process termination.
+- **Time Estimate**: 5-10 minutes
+- **Difficulty Level**: Beginner
+
+---
+
+## 2. Step-by-Step Instructions
+
+### Step 1: Launch keel with Required Parameters
+
+1. Open your terminal.
+2. Run keel using Python with the mandatory parameters:
+
+   ```bash
+   python3 keel.py -u <username> -m <mode>
+   ```
+
+   - Replace `<username>` with the system username whose processes you want to view (e.g., `root`).
+   - Replace `<mode>` with either `regular` (for system processes) or `connections` (to show network connections).
+
+3. **Example:** To launch for user `root` in regular mode:
+
+   ```bash
+   python3 keel.py -u root -m regular
+   ```
+
+4. If you need guidance on parameters, run:
+
+   ```bash
+   python3 keel.py -h
+   ```
+
+### Step 2: Understand the keels UI Layout
+
+- After launch, keel displays:
+  - A **title bar** centered at the top showing mode, user, and instructions.
+  - A **list of processes** below the title.
+- Each line represents a process in this format:
+
+  ```plaintext
+  PID : ProcessName
+  ```
+
+- The cursor highlights exactly one process entry.
+
+### Step 3: Navigate the Process List
+
+- Use the **arrow keys**:
+  - `Up` / `Down` — move the cursor vertically through processes;
+  - At list boundaries, the UI scrolls smoothly to show more entries.
+
+- Horizontal movement keys (`Left` / `Right`) have limited use currently.
+
+- Press `q` at any time to exit keel safely.
+
+### Step 4: Interpret the Displayed Information
+
+- **PID**: The unique Process ID allows identification or external reference.
+- **Process Name**: The name provides immediate recognition of the running application or service.
+- This view lets you quickly ascertain what is running under the specified user.
+
+### Step 5: (Optional) Kill a Process from the UI
+
+- With the cursor on the desired process, press `Enter` to kill it.
+- The UI removes the process from the list immediately upon a successful kill.
+- **Warning**: Killing critical system processes can cause instability. Always confirm before killing.
+
+### Step 6: Change Context (User or Mode) - Planned Features
+
+- Currently, the UI responds to `m` (mode) or `u` (user) key presses but does not yet fully support changing mode or user within the session.
+- Future releases will allow in-session switching with text input prompts.
+
+---
+
+## 3. Practical Tips and Best Practices
+
+- **Start with the correct username and mode** to minimize irrelevant processes.
+- **Use the keyboard navigation efficiently**: Arrow keys provide quick, responsive movement.
+- **Regularly monitor the title bar** — it reflects the current mode and user context.
+- If the process list is empty, keel will automatically exit, which is a normal termination.
+- Run keel in a terminal with sufficient height and width to see more processes at once.
+
+---
+
+## 4. Troubleshooting & Tips
+
+<AccordionGroup title="Common Issues and Solutions">
+<Accordion title="The process list is empty after launch">
+- Verify that the username specified has running processes on the system.
+- Make sure the chosen mode (`regular` or `connections`) is appropriate.
+- Check system permissions; you might need elevated rights to view some processes.
+- See [Troubleshooting Common Issues](/getting-started/first-run-validation/troubleshooting-common-issues) for detailed fixes.
+</Accordion>
+<Accordion title="Unable to kill a process when pressing Enter">
+- The process may have already terminated.
+- You might lack permission to kill that process.
+- keel protects itself from terminating its own process.
+- Check system logs or run keel with higher privileges if needed.
+</Accordion>
+<Accordion title="UI does not respond or crashes">
+- Ensure your terminal supports ncurses.
+- Use the latest Python 3 version compatible with keel.
+- Avoid resizing terminal windows during operation.
+</Accordion>
+</AccordionGroup>
+
+<Tip>
+If you are unfamiliar with terminal navigation, practice arrow keys movement before attempting to kill processes.
+</Tip>
+
+<Tip>
+Launching keel with `-m connections` mode displays open network connections instead of regular processes (see related docs for connection mode usage).
+</Tip>
+
+---
+
+## 5. Next Steps & Related Content
+
+- After mastering viewing and navigation, proceed to [Killing Processes Safely](/guides/core-workflows/kill-process) for best practices on terminating processes.
+- Explore [Filtering Processes by User](/guides/advanced-usage/filter-by-user) to narrow process views.
+- For a comprehensive introduction, see [Core Concepts & Terminology](/keel-overview/core-concepts-architecture/keel-concepts-terminology).
+- If not installed yet, follow the installation guide at [Installation & Dependencies](/keel-overview/integration-getting-started/installation-dependencies).
+
+---
+
+## Example Command and Output
+
+```bash
+python3 keel.py -u root -m regular
+```
+
+Sample displayed output (highlighted cursor on one line):
+
+```
+                    Choose a process to kill and hit enter, user: root, mode: Regular
+
+  1012 : sshd
+  2045 : python3  <- [cursor here]
+  3050 : systemd
+  4088 : nginx
+
+Press 'q' to exit.
+```
+
+Using arrow keys moves the cursor up/down to select a different process.
+
+---
+
+By following this guide, you will become proficient in launching keel and navigating its interface to gain immediate insights into your system processes, setting the stage for effective process management.
+
+---

@@ -1,0 +1,79 @@
+---
+title: "Target Audience & Use Cases"
+description: "keel is built for system administrators, cyber defense teams, and power users who require a fast, intuitive tool for process management and connection monitoring. Use cases include defending servers during cyber competitions, routine process cleanup, and multi-user environment diagnostics."
+---
+
+# Target Audience & Use Cases
+
+## Who Should Use keel?
+keel is meticulously designed for professionals who demand speed, clarity, and control in managing system resources within a terminal environment. Its core users include:
+
+- **System Administrators:** Those responsible for maintaining healthy, secure, and performant servers find keel invaluable for rapidly identifying and terminating problematic processes.
+- **Cyber Defense Teams:** In high-stress environments such as cyber defense competitions or incident response scenarios, keel’s fast, integrated process and network connection monitoring provides critical situational awareness and rapid mitigation capabilities.
+- **Power Users and Developers:** Individuals needing a lightweight but powerful tool for managing processes across multiple users or sessions will benefit from keel’s user- and mode-switching flexibility.
+
+## Why keel Matters to You
+In any environment where time is of the essence, navigating numerous processes and open connections scattered across terminal windows leads to cognitive overload, delayed responses, and potential errors. keel consolidates process management and connection monitoring into a single terminal interface, reducing operational friction, accelerating decision-making, and empowering you to maintain control effortlessly.
+
+## Key Use Cases
+
+### 1. Defending Critical Servers During Cyber Competitions
+Imagine you are part of a red or blue team tasked with defending a critical infrastructure server under attack. You need to see open network connections related to suspicious activity and kill malicious processes immediately—all without toggling between multiple terminal windows. keel allows you to:
+
+- View all active connections (TCP, UDP, unix sockets) in real time.
+- Quickly switch to viewing user-specific processes.
+- Kill suspicious processes with a single keystroke, minimizing opportunity for attackers.
+
+---
+
+### 2. Routine Server Process Cleanup
+In daily server maintenance, administrators often need to clean up orphaned or rogue processes consuming resources unnecessarily. keel enables:
+
+- Listing all processes owned by specific users—e.g., low-privileged service accounts or root.
+- Rapid identification and termination of stale processes using keyboard navigation.
+- Switching operational modes to inspect open connections before deciding whether to terminate a connected process.
+
+---
+
+### 3. Diagnosing Issues in Multi-User Environments
+On shared systems, balancing processes across many users can be challenging. keel’s ability to:
+
+- Filter processes by a username enables targeted diagnostics.
+- Easily switch modes to view network connections related to particular processes.
+- Provides a focused and simplified view even in complex multi-user setups.
+
+This functionality reduces the noise of unrelated processes and streamlines troubleshooting.
+
+## Before and After keel
+| Scenario                   | Without keel                                    | With keel                                      |
+|----------------------------|------------------------------------------------|------------------------------------------------|
+| Process discovery           | Multiple terminal windows, manual filtering   | Single terminal shows filtered list by user/mode|
+| Killing a process           | Command line lookup + kill commands            | Navigate list, press Enter to kill instantly    |
+| Viewing network activity    | Separate tools for connections                  | Integrated connection view mode                  |
+| Responding under pressure  | Slow toggling between views                      | Fast user/mode switching without context loss   |
+
+## Practical Tips for Maximizing keel
+- Always specify the username with the `-u` argument to focus on relevant processes.
+- Choose the startup mode (`regular` for processes or `connections`) for your primary task.
+- Use keyboard navigation efficiently to highlight and terminate processes swiftly.
+
+## Summary
+keel is essential for any professional handling active server environments where visibility and rapid action matter. By integrating process management and connection monitoring in a unified and intuitive terminal UI, keel sharpens operational responsiveness and enhances security posture.
+
+---
+
+## Next Steps
+Ready to dive in? Explore how to install keel and get started with the following documentation:
+
+- [Installation & Dependencies](/keel-overview/integration-getting-started/installation-dependencies)
+- [Installation Methods](/getting-started/setup-installation/installation-methods)
+- [Configuration & Initial Setup](/getting-started/setup-installation/configuration-setup)
+
+For hands-on workflow guides:
+
+- [Installing and Launching keel](/guides/core-workflows/install-launch)
+- [Viewing and Navigating Processes](/guides/core-workflows/view-processes)
+
+<Note>
+Understanding keel’s core concepts will empower you to use it unlocking its full potential. Consider reviewing [Core Concepts & Terminology](/keel-overview/core-concepts-architecture/keel-concepts-terminology) if you need foundational clarity.
+</Note>

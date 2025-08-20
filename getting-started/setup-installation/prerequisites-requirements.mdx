@@ -1,0 +1,123 @@
+---
+title: "Prerequisites & System Requirements"
+description: "Understand what you need before using keel, including supported Python versions, system capabilities, and third-party package dependencies. This page ensures your system is compatible and ready for installation."
+---
+
+# Prerequisites & System Requirements
+
+Ensuring your system is compatible and properly prepared before installing and running **keel** is crucial for a smooth experience. This page outlines the essential Python versions, system capabilities, and third-party dependencies required to get started with keel effectively.
+
+---
+
+## 1. Supported Python Versions
+
+- keel is written entirely in **Python 3**.
+- **Python 3.6 or higher** is required for proper functionality.
+- To verify your Python version, run:
+
+```bash
+python3 --version
+```
+
+If your Python version is less than 3.6, upgrade your Python installation before proceeding.
+
+---
+
+## 2. System Capabilities
+
+### Operating System
+- keel is designed for use on UNIX-like systems (Linux, BSD, macOS) where Python 3 and **ncurses** support are available.
+- The utility runs in a terminal and relies on the **ncurses** library for its interactive text interface.
+- Windows is **not officially supported** due to differences in terminal handling and ncurses availability.
+
+### Terminal Requirements
+- A compatible terminal emulator that supports ncurses-based applications is mandatory.
+- Recommended terminal emulators include `xterm`, `gnome-terminal`, `konsole`, or macOS Terminal.
+
+### Resource Requirements
+- keel is lightweight, requiring minimal CPU and memory.
+- Ensure your system has:
+  - At least **100MB of free RAM** to run comfortably alongside other operations.
+  - Sufficient terminal window size (recommended minimum 80 columns by 24 rows) for clear display.
+
+---
+
+## 3. Dependencies & Third-Party Packages
+
+keel depends on several Python libraries to manage processes and render its interface:
+
+- **psutil**: Essential for process and network connection management.
+- **ncurses**: Utilized via Python’s `curses` module for terminal UI.
+
+### Installing Dependencies
+- When installing keel via PIP, dependencies in `requirements.txt` are automatically installed.
+- Alternatively, install required packages manually with:
+
+```bash
+pip3 install psutil
+```
+
+- The ncurses library is typically bundled with the Python standard library (`curses` module), but confirm your Python environment supports it.
+
+### Verify Dependencies
+Run the following Python script to test if all dependencies are met:
+
+```python
+import psutil
+import curses
+
+print('psutil version:', psutil.__version__)
+try:
+    stdscr = curses.initscr()
+    curses.endwin()
+    print('ncurses (curses) available')
+except Exception as e:
+    print('ncurses (curses) not available:', e)
+```
+
+If this script runs without errors, your environment is set up correctly.
+
+---
+
+## 4. Access and Permissions
+
+- keel requires permission to query and manage system processes.
+- Running keel with a specific user (via the `-u` argument) restricts process visibility and management to that user’s processes.
+- To manage system-wide processes or those owned by other users:
+  - Run keel as the **root** user or with appropriate elevated permissions.
+
+> **Tip:** If you encounter permission errors, consider running keel with `sudo` or adjust user privileges accordingly.
+
+---
+
+## 5. Network & Environment Settings
+
+- keel can operate in two modes: **regular system processes** and **network connections**.
+- No special firewall or network ports need to be opened for keel operation, as it interacts locally with the OS.
+
+---
+
+## 6. Common Pitfalls & Best Practices
+
+- Ensure Python 3 and pip are properly installed and linked to your command line.
+- Avoid using Python 2 or environments without curses support.
+- If running inside limited or containerized environments, verify terminal emulation and device file permissions.
+
+---
+
+## Next Steps
+
+After confirming your system meets these prerequisites:
+
+1. Proceed to the [Installation Methods](/getting-started/setup-installation/installation-methods) page to install keel.
+2. Follow [Configuration & Initial Setup](/getting-started/setup-installation/configuration-setup) to prepare keel for your environment.
+3. Review [First Successful Run](/getting-started/first-run-validation/first-successful-run) to execute your first operation.
+
+---
+
+For detailed dependency information, visit keel's [GitHub repository](https://github.com/modelorona/keel).
+
+
+<Check>
+Ensure you have Python 3.6+, a UNIX-like system with ncurses-compatible terminal, and psutil installed before installing keel.
+</Check>
