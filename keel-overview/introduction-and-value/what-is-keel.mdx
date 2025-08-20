@@ -1,0 +1,92 @@
+---
+title: "What is keel?"
+description: "keel is an ncurses-based Python 3 utility that displays a list of system processes and allows users to quickly terminate (kill) highlighted processes with a single keystroke. The tool streamlines process and connection management for efficient server administration, was born from real cyber defense needs, and prioritizes ease-of-use in command-line environments."
+---
+
+# What is keel?
+
+## Introducing keel: Streamlined Process Control at Your Fingertips
+
+keel is a compact yet powerful Python 3 utility that leverages the simplicity of the terminal with the flexibility of `ncurses` to help system administrators and developers manage running system processes effectively. By presenting a user-friendly, interactive terminal interface, keel enables you to see exactly which processes are running and terminate them instantly with a single keystroke.
+
+### Why keel Matters
+In many server and security administration scenarios, quickly identifying and stopping unwanted or suspicious processes is critical. Traditional methods often require complex commands or multiple steps. keel simplifies this workflow by combining process listing and termination into one efficient interface, reducing the risk of errors and accelerating response times.
+
+### Key Value Propositions
+- **Instant Process Identification**: View active processes and their PIDs clearly within a single terminal window.
+- **One-Key Kill Functionality**: Highlight any process and kill it immediately by pressing Enter.
+- **User and Mode Flexibility**: Tailor your view by selecting processes by specific users or focusing on open network connections.
+- **Terminal-Centric Design**: Fully operates within the console, negating the need for graphical tools.
+- **Designed for Security Needs**: Born from real-world cyber defense experience, tailored for rapid server protection.
+
+### Intended Users
+keel is built for system administrators, cybersecurity professionals, and developers who require swift process management from the command line, especially in environments where graphical interfaces are impractical or unavailable.
+
+---
+
+## What is keel and What Problem Does It Solve?
+
+At its core, keel is a terminal-based application that lists system processes owned by users and allows you to kill (terminate) them effortlessly. Unlike running disparate commands to list processes, search for PIDs, and manually execute kill commands, keel consolidates these steps into a unified terminal interface.
+
+This tool dramatically reduces the time and complexity associated with identifying runaway or malicious processes, making server management safer and more efficient.
+
+### What Sets keel Apart?
+- It combines process visibility and control within one ncurses-powered terminal interface.
+- Supports switching views between process ownership by user and open network connections.
+- Allows quick switching of users and operation modes within the session.
+- Automatically updates and highlights the currently selected process for clear focus.
+
+### How keel Works — At a High Level
+1. **Initialize Terminal UI:** Using an ncurses interface, keel sets up a terminal window tailored for interaction.
+2. **Display Process List:** Lists processes filtered by the chosen user or connections mode.
+3. **User Interaction:** Navigate through processes using keyboard arrows.
+4. **Kill Process:** Press Enter to immediately terminate the highlighted process.
+5. **Dynamic Refresh:** The interface refreshes to reflect the current system state.
+
+This interaction loop empowers users to manage processes seamlessly without leaving the terminal or invoking multiple commands.
+
+---
+
+## Real-World Scenario: Defensive Process Control
+Imagine you are defending a server during an intrusion attempt. Conventional methods may involve opening multiple terminal windows and manually hunting for suspicious processes or connections.
+
+keel streamlines this to a single window showing all active processes and connections, allowing you to swiftly highlight and terminate harmful activities, helping you regain control with speed and precision.
+
+---
+
+## Tips and Best Practices
+- Always confirm you are killing the correct process by examining the PID and process name displayed.
+- Use the mode switching feature (e.g., regular processes vs. network connections) to tailor your monitoring focus.
+- Run keel with appropriate user permissions to access process lists for different users.
+- Be cautious not to kill system-critical processes that may destabilize the server.
+
+---
+
+## Getting Started
+To start using keel, ensure you have Python 3 installed along with the necessary dependencies as described in the installation and setup documentation.
+
+Run the program with your username and preferred mode:
+
+```bash
+python3 keel.py -u <username> -m regular
+```
+
+Replace `<username>` with the system user you want to monitor. The mode can be `regular` to see standard processes or `connections` to view open network connections.
+
+Once running, navigate using arrow keys, highlight processes, and press Enter to kill selected processes.
+
+For detailed instructions on installation, configuration, and command usage, see the related guides in this documentation.
+
+---
+
+## Related Documentation
+- [Product Value & Key Benefits](./why-use-keel)
+- [Target Audience & Use Cases](./target-audience-use-cases)
+- [Installing and Launching keel](../../guides/core-workflows/install-launch)
+- [Viewing and Navigating Processes](../../guides/core-workflows/view-processes)
+- [Killing Processes Safely](../../guides/core-workflows/kill-process)
+
+
+---
+
+*keel transforms process management from a multi-step, error-prone task into a streamlined, one-window solution — empowering you to act fast, stay informed, and keep systems secure.*
