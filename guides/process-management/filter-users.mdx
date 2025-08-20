@@ -1,0 +1,125 @@
+---
+title: "Filtering Processes by User"
+description: "Explore how to switch process views based on ownership, providing step-by-step instructions for narrowing down processes to a specific user via available parameters and UI actions."
+---
+
+# Filtering Processes by User
+
+## Overview
+This guide shows you how to filter and view system processes by ownership. Whether you want to focus on processes belonging to a specific user or investigate resource use linked to a particular account, this page helps you narrow down the process list quickly and effectively using available UI tools and parameters.
+
+Filtering processes by user ownership provides a clear perspective on system activity relevant to individual users, letting you pinpoint resource hogs, troubleshoot user-specific issues, or audit running tasks.
+
+## Prerequisites
+
+- Ensure keel is running and you have access to the process management interface.
+- Basic familiarity with the keel UI layout and navigating to the process view.
+- Required permissions to view processes for other users if filtering beyond your own.
+
+## What You Will Achieve
+- Learn to switch the active process view based on ownership.
+- Use built-in filtering options to isolate processes owned by a chosen user.
+- Understand how to apply parameters effectively to refine the process list.
+
+## Estimated Time
+About 5 minutes to master filtering and view results.
+
+## Difficulty Level
+Beginner to Intermediate — no advanced system admin skills required.
+
+---
+
+## Step-by-Step Instructions
+
+### 1. Open the Process View Panel
+- Navigate to the Processes section in keel’s interface.
+- You will see a list/table of all running processes along with key details such as PID, CPU usage, memory usage, and more.
+
+### 2. Locate the Ownership Filter
+- Find the filter control labeled “User” or “Owner” above or next to the process list.
+- This filter lets you select which user’s processes you want to view.
+
+### 3. Select a User to Filter
+- Click on the user dropdown or input field.
+- Either select from the list of known user accounts shown or enter the username manually.
+- The interface instantly updates to show only processes owned by the selected user.
+
+### 4. Using Command-Line Parameters (Optional)
+- If launching keel from the command line, you can apply a filter to only load processes of a specific user.
+- Use the parameter (exact syntax may vary, check `--help`):
+
+```bash
+keel --user=<username>
+```
+
+- This pre-filters process views upon startup.
+
+### 5. Confirm Filter Application
+- Verify that the process list exclusively shows processes tagged with the chosen user ownership.
+- Check that process counts and resource usage reflect the filtered scope accurately.
+
+### 6. Clear or Change Filter
+- To widen the view, clear the filter selection or choose “All Users.”
+- Changing the filter again updates the list accordingly without needing to restart keel.
+
+<Tip>
+When filtering by user, ensure you have the necessary permissions to view processes owned by others. Restricted access may limit visibility and display incomplete results.
+</Tip>
+
+<Tip>
+For faster filtering, start typing a username in the filter field and select from the autocomplete suggestions.
+</Tip>
+
+---
+
+## Practical Example
+Suppose you want to audit all processes run by user 'alice' to identify any that consume excessive memory.
+
+- Navigate to the process view.
+- Enter or select 'alice' in the user filter.
+- The list updates instantly, showing only 'alice' owned processes.
+- Sort the list by memory usage descending to see top consumers.
+
+This immediate narrowing allows focused troubleshooting or auditing without sifting through the full process list.
+
+---
+
+## Troubleshooting & Tips
+
+<AccordionGroup title="Common Issues and Solutions">
+<Accordion title="Filtered List Shows No Processes">
+- Verify the username spelling is correct.
+- Confirm that processes for that user are actually running at the time.
+- Ensure you have permission to view processes for that user.
+</Accordion>
+<Accordion title="Cannot See Processes from Other Users">
+- Check your permissions. Some systems restrict access to only your own processes.
+- Run keel with elevated privileges if administrative views are needed.
+</Accordion>
+<Accordion title="Filter Dropdown is Empty or Missing">
+- Reload the process view to refresh the user list.
+- Confirm keel is up to date and there are no UI issues.
+- Restart the application if necessary.
+</Accordion>
+</AccordionGroup>
+
+<Tip>
+Consistently filtering by the user can be combined with other filters (such as process name or status) to create a powerful search to locate any process quickly.
+</Tip>
+
+---
+
+## Next Steps & Related Documentation
+- After filtering by user, learn how to [Kill Processes from the Interface](/guides/process-management/process-control) to manage unwanted or resource-heavy tasks.
+- Explore filtering by other attributes such as process name or resource usage to deepen process management skills.
+- Review [Command-Line Parameters and Help](/guides/getting-started/help-and-parameters) for other powerful startup options.
+
+## Resources
+- [keel GitHub Repository](https://github.com/modelorona/keel)
+- Main documentation: [Getting Started](/overview/getting-started/product-intro)
+
+---
+
+Filtering processes by user ownership helps you take precise control over which tasks you monitor or troubleshoot, making keel a sharper tool for system observation and maintenance.
+
+Begin filtering now and experience the clarity of focused process visibility tailored to your user-centric needs.
