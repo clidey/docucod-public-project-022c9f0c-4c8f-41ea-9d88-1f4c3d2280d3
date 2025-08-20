@@ -1,0 +1,128 @@
+---
+title: "System Architecture Overview"
+description: "An explanatory diagram and narrative of keel's architecture: how the UI, process management, and mode switching interact. Highlights the primary flow from user input to process termination and connection inspection."
+---
+
+# System Architecture Overview
+
+## Introduction
+
+Understanding keel's architecture is key to effectively using and extending this powerful terminal-based process and connection management tool. This page provides a clear explanation of how keel's core components—the User Interface (UI), process management backend, and mode switching logic—interact to deliver a seamless user experience. We will walk you through the primary user flow, from initial input to process termination and connection inspection.
+
+---
+
+## What Is This Page About?
+
+This page details the high-level architecture of keel, focusing on the interaction pathways between the Terminal UI, the modes controlling data presentation, and the underlying process management functions. It highlights how user inputs flow through the system to produce real-time changes in what the user sees and controls.
+
+For users, this explanation clarifies how keel organizes data and supports key operations like listing processes or network connections, switching between modes, and killing processes. Understanding these interactions empowers users to navigate the interface with confidence and troubleshoot common issues.
+
+---
+
+## Architectural Components
+
+### 1. Terminal User Interface (UI)
+- **Role:** The Terminal UI, built on Python's curses library in `ui.py`, is the interactive component that displays processes or connections and captures user input.
+- **User Interaction:** It shows lists of processes or open connections, highlights the current selection, and listens for keyboard events such as navigation keys, mode switching, and the command to kill a selected process.
+- **Flexibility:** The UI adapts its display based on the current mode and user selection, updating dynamically as users move through items or change modes.
+
+### 2. Mode Management
+- **Role:** The mode system (`mode.py`) governs what data is shown and how certain commands behave. Two primary modes are "Regular" (process list) and "Connections" (open network connections).
+- **User Context:** Modes filter the data based on the specific username and context — for example, listing only processes owned by a user or network connections.
+- **Switching Modes:** Users can switch between modes (though full mode switch UI is a work in progress) to change their view, supported internally by the UI calling mode change methods.
+
+### 3. Process and Connection Management Backend
+- **Role:** The `util_ps.py` module interfaces with `psutil` to fetch data about processes and network connections, and to execute actions like killing a process by PID.
+- **Functionality:** It efficiently retrieves process lists by username or name, and gathers active network connections filtered by type (e.g., tcp, udp).
+- **Safety:** Contains safeguards to prevent accidental termination of the program itself.
+
+---
+
+## Primary User Flow Explained
+
+This flow shows how a user's input travels through keel's components, resulting in process or connection management actions.
+
+```mermaid
+flowchart TD
+  UI["Terminal UI (ui.py)"] -->|renders process or connection list| Display["Screen Display"]
+  User["User Input (keyboard)"] --> UI
+  UI -->|captures navigation or commands| InputHandler["Input Handling Logic"]
+  InputHandler -->|fetch data| Mode["Mode (mode.py)"]
+  Mode -->|retrieves filtered data| UtilPs["Process Backend (util_ps.py)"]
+  UtilPs -->|returns process/connection info| Mode
+  Mode -->|passes data to| UI
+  InputHandler -->|kill command with PID| Mode
+  Mode -->|invokes kill_pid(pid)| UtilPs
+  UtilPs -->|kills process| System["Operating System"]
+  System -->|process terminated| UtilPs
+  UtilPs --> Mode
+  Mode --> UI
+
+  click UI href "https://github.com/modelorona/keel/blob/main/keel/ui.py"
+  click Mode href "https://github.com/modelorona/keel/blob/main/keel/mode.py"
+  click UtilPs href "https://github.com/modelorona/keel/blob/main/keel/util_ps.py"
+```
+
+### Step-by-Step Breakdown
+
+1. **User Input:** Command keys or arrow keys are captured by the Terminal UI when the user interacts.
+2. **Input Handling:** UI interprets inputs — for example, moving the highlight cursor, switching modes, or requesting to kill a process.
+3. **Mode Data Query:** The UI requests the current process or connection list from the active Mode instance, filtered by user and kind.
+4. **Data Retrieval:** The Mode calls utility functions in `util_ps` to query real-time system information.
+5. **Display Refresh:** The UI updates the terminal display with the latest data and highlights.
+6. **Process Termination:** When the user confirms a kill command, the UI notifies the Mode, which invokes the backend to terminate the specified PID.
+
+---
+
+## Key Design Highlights
+
+- **Separation of Concerns:** UI strictly manages display and input, Modes encapsulate data context and command logic, while the utility layer communicates with the OS process APIs.
+- **User-Centric Filtering:** Filtering by username and mode allows targeted views of processes or network connections, reducing noise.
+- **Keyboard-Driven Workflow:** Navigation and kill commands operate via intuitive keyboard shortcuts, enhancing speed and efficiency.
+
+---
+
+## Practical Tips for Users
+
+- Use the arrow keys to navigate the list smoothly — the system handles scrolling and item visibility automatically.
+- Press `Enter` to kill the highlighted process or connection, with safeguards preventing accidental self-termination.
+- Use the planned mode switch (`m` key) once implemented to toggle between process and connection views.
+- When switching users (`u` key), currently a text input box appears; this may evolve for better usability.
+
+---
+
+## Troubleshooting Common Issues
+
+<AccordionGroup title="Troubleshooting Common System Architecture Issues">
+<Accordion title="UI Not Updating or Freezing">
+- Ensure your terminal supports curses and the screen size is adequate.
+- Try resizing your terminal window to refresh UI dimensions.
+- Check for error logs in `output.log` to identify exceptions.
+</Accordion>
+<Accordion title="Process Kill Fails">
+- Confirm you have permission to kill the selected process.
+- Verify the process still exists (it might have terminated independently).
+- Ensure you are not attempting to kill the current running instance of keel itself.
+</Accordion>
+<Accordion title="Mode Switch Does Not Respond">
+- The mode switch feature (`m` key) is under development and may not fully work.
+- Use command-line parameters to start in a specific mode.
+</Accordion>
+</AccordionGroup>
+
+---
+
+## Next Steps
+
+To deepen your understanding and start interacting with keel:
+
+- Explore the [Getting Started guides](../../getting-started) to install and launch keel.
+- Review [Core Concepts & Terminology](../core-concepts-terminology) to grasp key terms related to processes and connections.
+- Study [Command-Line Parameters and Help](../../guides/getting-started/help-and-parameters) to customize how you launch keel.
+
+
+---
+
+This overview equips you with a clear mental model of keel's internal workings, empowering efficient use and troubleshooting of its powerful terminal interface and process management capabilities.
+
+---
