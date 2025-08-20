@@ -1,0 +1,226 @@
+---
+title: "Installation & Dependencies"
+description: "Learn how to install keel using pip, review required dependencies (ncurses, Python 3), and get pointers for initial troubleshooting. Highlights differences between source and pip installs, and notes on future command-line executable support."
+---
+
+# Installation & Dependencies
+
+Welcome to the installation and dependencies guide for **keel** — your streamlined terminal-based tool for effortless process management and network connection monitoring. In this guide, you’ll learn how to set up keel via the recommended Pip installation method, review essential dependencies, and troubleshoot common setup issues to ensure a smooth launch.
+
+---
+
+## Why This Guide Matters
+
+Getting keel up and running is the first critical step toward transforming your process management experience. This page is crafted to provide clear, actionable instructions that save you time and prevent headaches, whether you’re installing from source or Pip. Knowing the dependencies and installation nuances empowers you to avoid common pitfalls and quickly start managing processes from a unified terminal interface.
+
+---
+
+## Installing keel
+
+### Pip Installation — The Recommended Path
+
+The simplest, fastest way to get keel running on your system is via Python’s package manager, Pip. This method handles dependencies automatically and ensures you stay up to date with the latest improvements.
+
+### Steps to Install via Pip:
+
+1. **Ensure Python 3 is installed.**
+   - keel requires Python 3. Verify with:
+
+   ```bash
+   python3 --version
+   ```
+
+2. **Install keel using Pip:**
+
+   ```bash
+   pip install keel
+   ```
+
+3. **Verify installation:**
+
+   While keel is not yet packaged as a standalone executable command, you can run the program directly using Python after installation.
+
+   ```bash
+   python3 -m keel.keel -h
+   ```
+
+   This command displays usage help and confirms the package is installed correctly.
+
+<Tip>
+The `-h` flag is your quick reference to see required parameters like username and mode.
+</Tip>
+
+---
+
+### Installing from Source
+
+If you prefer to work directly from the source repository or want the latest development version:
+
+1. **Clone the repository:**
+
+   ```bash
+   git clone https://github.com/modelorona/keel.git
+   cd keel
+   ```
+
+2. **Install dependencies:**
+
+   keel uses standard Python packages, primarily `psutil` and `curses` (ncurses bindings). Ensure you have these installed:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+   *(Note: The requirements.txt is referenced but verify its presence in the repo or install dependencies manually.)*
+
+3. **Run the program:**
+
+   ```bash
+   python3 keel.py -u your_username -m regular
+   ```
+
+---
+
+## Key Dependencies
+
+keel operates on core Python 3 and depends on these essential components:
+
+- **Python 3.6+**: Ensures compatibility with newer syntax and libraries.
+- **psutil**: For fetching and controlling system processes and network connections.
+- **ncurses (curses in Python)**: Provides the terminal UI framework for an interactive experience.
+
+<Tip>
+Most modern Linux distributions include `ncurses` by default. Windows users may require an alternative terminal or compatibility layer.
+</Tip>
+
+### Dependency Management
+
+All dependencies are handled automatically when using Pip. When installing from source, ensure you have administrative rights or use virtual environments to manage Python packages safely.
+
+---
+
+## Running keel — Initial Setup Notes
+
+Since keel is not yet exposed as a command-line executable, you must run it through Python directly using the main script with parameters.
+
+### Required Parameters:
+
+- `-u` or `--username`: Specifies the Linux user whose processes you want to view (defaults to `root` if omitted).
+- `-m` or `--mode`: Must be either `regular` (for normal process listing) or `connections` (for network connections).
+
+Example command:
+
+```bash
+python3 keel.py -u alice -m connections
+```
+
+<Tip>
+Running `python3 keel.py -h` will display a help screen summarizing valid parameters and usage.
+</Tip>
+
+---
+
+## Troubleshooting Common Installation Issues
+
+<AccordionGroup title="Troubleshooting Installation and Runtime Issues">
+<Accordion title="Python version errors">
+Ensure you are running Python 3. keel is incompatible with Python 2.x. Verify your version with:
+
+```bash
+python3 --version
+```
+
+If you only have `python` pointing to Python 2, use `python3` explicitly.
+</Accordion>
+<Accordion title="Missing dependencies">
+If you encounter errors about missing modules like `psutil` or `curses`, try:
+
+```bash
+pip install psutil
+``` 
+
+For `curses`, note it is part of Python standard library on Unix/Linux. On Windows, consider using Windows Subsystem for Linux (WSL) or compatible terminals.
+</Accordion>
+<Accordion title="Permission denied errors">
+Running keel requires permissions to view and kill processes by user. Make sure your user account has sufficient privileges or try running as `root` (or via `sudo`) if necessary.
+
+Be cautious when running as root to avoid unintended system disruptions.
+</Accordion>
+<Accordion title="UI rendering issues">
+Terminal UI relies on ncurses and compatible terminal emulators. If the interface does not display properly or breaks:
+
+- Try resizing the terminal window.
+- Use a modern terminal emulator like `xterm`, `gnome-terminal`, or `Windows Terminal` under WSL.
+- Ensure your terminal supports color and cursor control sequences.
+</Accordion>
+</AccordionGroup>
+
+---
+
+## Future Installation Enhancements
+
+The project is actively evolving. Planned improvements include:
+
+- Packaging keel as a standalone, executable command line tool post-installation.
+- A simplified installation script to handle all environment setup.
+- Expanded documentation for containerized deployments or cross-platform builds.
+
+Stay updated by visiting the [GitHub repository](https://github.com/modelorona/keel).
+
+---
+
+## Summary
+
+By following this guide, you will have keel installed and ready to launch, integrated with required Python 3 dependencies and ncurses for the interactive terminal UI. Once installed, you can immediately begin managing processes and connections with a clear, unified interface that streamlines your workflow.
+
+For seamless operation, ensure your system meets Python 3 and ncurses prerequisites, and choose the installation method that suits your environment best.
+
+---
+
+## Next Steps
+
+- Familiarize yourself with keel's core concepts and workflows by visiting the [Core Concepts & Terminology](../core-concepts-architecture/keel-concepts-terminology) page.
+- Dive into the [First Successful Run](../../getting-started/first-run-validation/first-successful-run) guide for a step-by-step walkthrough of launching keel.
+- If issues arise, consult the [Troubleshooting Common Issues](../../getting-started/first-run-validation/troubleshooting-common-issues) documentation.
+
+Start managing processes smarter with keel today!
+
+---
+
+## Additional Resources
+
+- [keel GitHub Repository](https://github.com/modelorona/keel)
+- [Python 3 Official Download](https://www.python.org/downloads/)
+- [psutil Python Package](https://pypi.org/project/psutil/)
+- [ncurses Documentation](https://invisible-island.net/ncurses/)
+
+---
+
+## Related Documentation
+
+- [What is keel? — Product Overview](../introduction-and-value/what-is-keel)
+- [Core Concepts & Terminology](../core-concepts-architecture/keel-concepts-terminology)
+- [Quick Feature Overview](../core-concepts-architecture/key-features-preview)
+
+---
+
+# Example: Running keel after installation
+
+```bash
+# Install keel
+pip install keel
+
+# Check command line help
+python3 -m keel.keel -h
+
+# Run keel for user alice, regular mode
+python3 -m keel.keel -u alice -m regular
+```
+
+This will launch the terminal UI listing all processes owned by alice, enabling you to navigate and kill processes easily.
+
+---
+
+<Note>
+Because keel is based on ncurses, ensure you run it in a supported terminal environment. Running inside incompatible shells or minimal consoles may cause display issues.
+</Note>
