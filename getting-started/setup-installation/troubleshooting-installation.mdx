@@ -1,0 +1,240 @@
+---
+title: "Troubleshooting Installation Issues"
+description: "Helps users resolve common installation problems such as missing dependencies or Python version mismatches. Offers concrete solutions and pointers for validating their installation before moving to usage."
+---
+
+# Troubleshooting Installation Issues
+
+This guide helps you quickly identify and resolve common installation problems with **keel**, ensuring a smooth start to your process and connection management experience.
+
+---
+
+## 1. Common Installation Problems
+
+### 1.1 Missing Dependencies
+
+- **Problem**: When running `keel`, you get errors related to missing Python packages (e.g., `psutil`, `curses`).
+
+- **Solution**:
+  1. Ensure you have Python 3 installed (version 3.6 or higher is required).
+  2. Install keel’s dependencies by running:
+
+    ```bash
+    pip install -r requirements.txt
+    ```
+  3. If you installed keel using pip, it installs `psutil` automatically, but verify it with:
+
+    ```bash
+    pip show psutil
+    ```
+
+  4. To check if ncurses support is present (required for the terminal UI), try:
+
+    ```python
+    python3 -c "import curses"
+    ```
+    If this raises an import error, you need to install curses or your OS equivalent:
+
+    - **Ubuntu/Debian:** `sudo apt-get install libncurses5-dev libncursesw5-dev`
+    - **MacOS:** ncurses is included by default.
+
+<Tip>
+If you installed Python via a minimal environment (e.g., some Docker containers), curses may be missing. Make sure to include development headers for ncurses.
+</Tip>
+
+### 1.2 Python Version Mismatch
+
+- **Problem**: Errors or failure to run `keel.py` with syntax or import errors.
+
+- **Solution**:
+  1. Check your Python version by running:
+
+    ```bash
+    python3 --version
+    ```
+
+  2. keel requires **Python 3.6+**.
+  3. If you're using an older version, upgrade your Python environment.
+
+### 1.3 Permission Issues
+
+- **Problem**: Some processes or network connections do not appear, or the program can't kill processes.
+
+- **Solution**:
+  1. For normal users, `keel` shows only processes owned by that user.
+  2. To view or manage system or other users’ processes, run keel as root or with elevated privileges:
+
+    ```bash
+    sudo python3 keel.py -u root -m regular
+    ```
+  3. Always be cautious running as root to avoid unintended system changes.
+
+<Warning>
+Running keel with root privileges gives broad access to system processes. Only do so if you fully understand the implications.
+</Warning>
+
+### 1.4 pip Installation Failures
+
+- **Problem**: Running `pip install keel` fails.
+
+- **Solution**:
+  1. Verify that pip targets Python 3 (`pip3 install keel` on some systems).
+  2. Upgrade pip to the latest version:
+
+    ```bash
+    python3 -m pip install --upgrade pip
+    ```
+
+  3. Check your internet connection and proxy settings if behind a firewall.
+  4. If issues persist, consider installing inside a Python virtual environment to isolate dependencies:
+
+    ```bash
+    python3 -m venv keel-env
+    source keel-env/bin/activate
+    pip install keel
+    ```
+
+### 1.5 Incomplete or Corrupted Installation
+
+- **Problem**: keel commands do not respond or crash unexpectedly.
+
+- **Solution**:
+  1. Reinstall keel to ensure all files are intact:
+
+    ```bash
+    pip uninstall keel
+    pip install keel
+    ```
+
+  2. If manually running `keel.py`, pull the latest code from GitHub:
+
+    ```bash
+    git clone https://github.com/modelorona/keel.git
+    cd keel
+    pip install -r requirements.txt
+    ```
+
+  3. Run keel directly:
+
+    ```bash
+    python3 keel.py -u yourusername -m regular
+    ```
+
+## 2. Validating Your Installation
+
+Follow these steps to confirm keel is installed and working correctly.
+
+<Steps>
+<Step title="Verify Python Version">
+Run:
+
+```bash
+python3 --version
+```
+
+Confirm that the output is Python 3.6 or higher.
+</Step>
+<Step title="Check Dependencies">
+Run:
+
+```bash
+pip show psutil
+python3 -c "import curses"
+```
+
+Both commands should succeed without error.
+</Step>
+<Step title="Run keel Help">
+Execute:
+
+```bash
+python3 keel.py -h
+```
+
+You should see usage instructions listing the required `-u` (username) and `-m` (mode) parameters.
+</Step>
+<Step title="Run keel in Regular Mode">
+Run:
+
+```bash
+python3 keel.py -u yourusername -m regular
+```
+
+If the terminal UI launches listing your processes, the installation works correctly.
+</Step>
+</Steps>
+
+<Tip>
+Replace `yourusername` with your actual system username or `root` for full system access.
+</Tip>
+
+## 3. Additional Troubleshooting Tips
+
+### 3.1 Terminal UI Not Displaying Correctly
+
+- Try running in a different terminal emulator.
+- Ensure your terminal supports curses (most Linux terminals, macOS Terminal, and Windows WSL).
+- Windows native command prompt does not support curses by default. Use WSL, Git Bash, or install Windows Terminal.
+
+### 3.2 Errors About Killing Processes
+
+- Some processes cannot be killed if you lack permission or if the process is critical.
+- Logs are written to `output.log` in the current directory. Check this file for error details.
+
+### 3.3 Unexpected Exit or Application Crash
+
+- Verify no conflicting Python packages or environment issues.
+- Run keel in verbose mode by increasing logging level (modify `keel.py` logging level to `DEBUG`) to get more information.
+
+## 4. Where to Get Help
+
+- Visit the [keel GitHub repository issues](https://github.com/modelorona/keel/issues) for known problems and community help.
+- Consult the surrounding documentation:
+  - [System Requirements & Prerequisites](/getting-started/setup-installation/system-requirements)
+  - [Installing keel](/getting-started/setup-installation/installing-keel)
+  - [Running keel for the First Time](/getting-started/first-steps/running-keel)
+  - [Troubleshooting Startup & Usage](/getting-started/first-steps/common-setup-issues)
+
+<Tip>
+Keeping your system updated and Python environment clean significantly reduces installation hurdles.
+</Tip>
+
+---
+
+By following these troubleshooting steps and validation checks, you can resolve installation issues efficiently and start harnessing keel’s capabilities to manage system processes and connections.
+
+
+---
+
+## Appendix: Quick Reference Commands
+
+```bash
+# Check Python version
+python3 --version
+
+# Install keel via pip
+pip install keel
+
+# Verify psutil package
+pip show psutil
+
+# Check curses module availability
+python3 -c "import curses"
+
+# Run keel help
+python3 keel.py -h
+
+# Run keel for your user in regular mode
+python3 keel.py -u yourusername -m regular
+
+# Run keel as root in connections mode
+sudo python3 keel.py -u root -m connections
+
+# Reinstall keel
+pip uninstall keel
+pip install keel
+```
+
+---
+
+_Last updated: Ensure you refer to the latest documentation link [keel GitHub](https://github.com/modelorona/keel) for updates._
