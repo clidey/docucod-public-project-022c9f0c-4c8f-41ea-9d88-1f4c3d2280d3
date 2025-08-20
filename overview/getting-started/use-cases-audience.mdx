@@ -1,0 +1,111 @@
+---
+title: "Target Audience & Use Cases"
+description: "Describes who should use keel (e.g., security teams, system administrators, developers), and common use cases like rapid process termination, monitoring open connections, and operational security tasks."
+---
+
+# Target Audience & Use Cases
+
+## Unlocking Powerful Process and Connection Management with keel
+
+keel is designed for those who need rapid, reliable control over system processes and network connections — all from a sleek terminal interface. Whether you’re in security operations, system administration, or development, keel empowers you to identify, monitor, and terminate processes and connections efficiently, saving you precious time during critical tasks.
+
+### Why Use This Page?
+This section helps you understand who benefits most from keel and illustrates the real-world scenarios where keel shines. Knowing exactly how and why to use keel lets you align it perfectly with your operational needs.
+
+---
+
+## Who Should Use keel?
+
+### Security Teams
+- **Respond quickly to threats** by instantly listing and terminating suspicious processes.
+- Monitor all open network connections to detect unauthorized access or suspicious communication.
+- Manage operational security workflows with a single interface.
+
+### System Administrators
+- **Streamline daily maintenance tasks**, such as killing runaway or stuck processes across multiple users.
+- Monitor open TCP, UDP, and other network connections efficiently.
+- Use process filtering to focus on specific users or system-wide processes.
+
+### Developers
+- **Debug and manage processes** during development cycles without leaving the terminal.
+- Quickly shut down test processes or servers by selecting and killing them.
+- Gain insights into network connections your applications hold.
+
+---
+
+## Common Use Cases
+
+### 1. Rapid Process Termination
+Imagine you're running a critical production server and a process starts consuming excessive resources. With keel, you can:
+- Filter processes by user to narrow down suspects.
+- Navigate a clean, curses-based UI to find the culprit.
+- Press ENTER to immediately kill the chosen process — no complex commands needed.
+
+This saves you from hunting through multiple terminal windows or memorizing PIDs.
+
+### 2. Monitoring Open Network Connections
+When investigating network activity, keel lets you:
+- Switch to network connection mode to see all active TCP, UDP, and UNIX socket connections.
+- Identify unexpected open connections that might indicate a compromise.
+- Close suspicious connections directly from the interface, halting potential threats in real time.
+
+### 3. Operational Security Tasks
+Security operators can combine process and connection views to gain a holistic understanding of system state. For example:
+- Quickly confirm the user running a suspicious process.
+- Cross-reference processes and open connections.
+- Rapidly intervene by terminating processes or closing connections.
+
+This unified approach reduces the overhead of juggling separate tools.
+
+---
+
+## How keel Fits into Your Workflow
+
+1. **Start keel with a user and mode** (`regular` for processes, `connections` for network sockets).
+2. **Use arrow keys to navigate your target list** — whether those are processes or connections.
+3. **Press ENTER to terminate the selected process or connection immediately.**
+4. **Switch user filters as needed** to zero in on specific accounts on your system.
+
+This flow addresses critical, real-time operational needs without distraction.
+
+---
+
+## Practical Tips & Best Practices
+
+- Always confirm the PID or connection details before killing to avoid disrupting important system services.
+- Use the `connections` mode to monitor network states proactively.
+- Remember that keel cannot kill its own process (to avoid accidental termination of the tool itself).
+- Run keel as root or with proper privileges to manage all user processes and connections effectively.
+
+---
+
+## Troubleshooting Common Challenges
+
+<AccordionGroup title="Troubleshooting & Common Pitfalls">
+<Accordion title="Process Not Listed for User">
+If you don’t see expected processes under a specific user, verify that you launched keel with the correct username parameter (`-u`).
+Also ensure that keel is running with necessary permissions to view that user's processes.
+</Accordion>
+<Accordion title="Unable to Kill a Process">
+If a kill attempt fails, it might be due to permission restrictions, the process terminating before the command executes, or trying to kill keel itself (which is prevented).
+Running keel as a privileged user often resolves permission issues.
+</Accordion>
+<Accordion title="No Open Connections Shown in Connections Mode">
+Verify the `-m connections` mode is properly selected. Also, network connections depend on system state — ensure there are active connections to display.
+</Accordion>
+</AccordionGroup>
+
+---
+
+## Summary
+
+By clearly understanding who benefits and how keel fits into your environment, you unlock a powerful command-line ally for system management and security enforcement. This enables rapid response, broad visibility, and operational clarity.
+
+---
+
+## Next Steps
+
+- Proceed to explore the [Overview: What is keel?](../overview/getting-started/product-intro) to understand keel's capabilities in detail.
+- See how to [Install and Configure keel](../../guides/getting-started/installation) to get started quickly.
+- Move on to the [Core Features at a Glance](../overview/getting-started/feature-overview) page for an in-depth look at key functionality.
+- Explore guides on [Filtering Processes by User](../../guides/process-management/filter-users) and [Viewing Network Connections](../../guides/process-management/view-connections) to deepen your operational mastery.
