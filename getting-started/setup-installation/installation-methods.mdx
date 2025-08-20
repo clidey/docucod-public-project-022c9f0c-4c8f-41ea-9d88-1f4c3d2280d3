@@ -1,0 +1,144 @@
+---
+title: "Installation Methods"
+description: "Follow straightforward instructions for installing keel via pip on various platforms. Provides platform-agnostic steps and clarifies the need for Python 3, covering both pip-based installs and manual alternatives."
+---
+
+# Installation Methods
+
+This guide walks you through straightforward steps to install **keel**, a terminal-based Python 3 utility for managing and killing system processes interactively. Whether you use pip or prefer manual execution, these instructions ensure you set up keel correctly across different platforms.
+
+---
+
+## 1. Prerequisites
+
+Before installing keel, ensure your environment meets the following requirements:
+
+- **Python 3.6 or later** must be installed and accessible via the command line as `python3` or `python`.
+- **pip** (Python package manager) should be available for Python 3.
+- Your terminal must support **ncurses** (standard for most Unix/Linux/macOS terminals).
+
+<Tip>
+If you are unsure about your Python or pip versions, run:
+```bash
+python3 --version
+pip3 --version
+```
+On Windows, ensure Python and pip are added to your PATH.
+</Tip>
+
+---
+
+## 2. Installing keel via pip (Recommended)
+
+Installing keel through pip is the easiest and most platform-agnostic method.
+
+### Step-by-step instructions:
+
+1. Open a terminal (Command Prompt on Windows, Terminal on macOS/Linux).
+2. Run the following command:
+   ```bash
+   pip install keel
+   ```
+3. Wait for pip to download and install keel and its dependencies (like `psutil`, `ncurses` compatibility).
+
+### Verification:
+
+After installation, verify keel is installed by running:
+```bash
+pip show keel
+```
+This command should display package information including the version.
+
+<Tip>
+If you encounter permissions issues, try:
+```bash
+pip install --user keel
+```
+or run the install command with elevated permissions (e.g., `sudo` on Linux/Mac).
+</Tip>
+
+---
+
+## 3. Running keel
+
+Currently, keel is not provided as a global executable command. You run it via Python, providing mandatory parameters:
+
+- `-u` or `--username`: Specify the user whose processes you want to manage (defaults to `root` if omitted, but recommended to specify explicitly).
+- `-m` or `--mode`: Select mode, either `regular` for processes or `connections` for network connections.
+
+### Example:
+
+```bash
+python3 -m keel.keel -u root -m regular
+```
+
+Alternatively, if installed globally, you can run the main python file directly:
+
+```bash
+python3 path/to/keel.py -u your_username -m regular
+```
+
+<Tip>
+Run `python3 keel.py -h` to see all available command-line options and help.
+</Tip>
+
+---
+
+## 4. Manual Installation (Alternative)
+
+If pip installation is not preferable, install keel manually from source:
+
+### Steps:
+
+1. Clone or download the [keel GitHub repository](https://github.com/modelorona/keel).
+   ```bash
+git clone https://github.com/modelorona/keel.git
+cd keel
+```
+2. Install dependencies manually:
+   ```bash
+pip install psutil
+# ncurses support is typically provided by the system
+```
+3. Run keel using Python directly:
+   ```bash
+python3 keel.py -u your_username -m regular
+```
+
+<Tip>
+This method gives you flexibility to explore or modify the source.
+</Tip>
+
+---
+
+## 5. Common Pitfalls and Tips
+
+- **Python Version:** keel requires Python 3.x; Python 2.x is not supported.
+- **User Argument:** Specifying the correct username with `-u` is critical — incorrect usernames can lead to empty process lists.
+- **Permissions:** Killing certain processes requires elevated privileges; consider running with `sudo` or as a user with sufficient rights.
+- **Environment Path:** Especially on Windows, ensure Python and scripts are on your PATH to avoid execution issues.
+
+---
+
+## 6. Next Steps
+
+After installing keel and verifying functionality, proceed to:
+
+- Configure keel for personalized setups ([Configuration & Initial Setup](/getting-started/setup-installation/configuration-setup))
+- Run your first session and validate operation ([First Successful Run](/getting-started/first-run-validation/first-successful-run))
+- Troubleshoot common installation or usage issues ([Troubleshooting Common Issues](/getting-started/first-run-validation/troubleshooting-common-issues))
+
+
+---
+
+## Additional Resources
+
+- [keel GitHub Repository](https://github.com/modelorona/keel)
+- [Prerequisites & System Requirements](/getting-started/setup-installation/prerequisites-requirements)
+- [Core Concepts & Terminology](/keel-overview/core-concepts-architecture/keel-concepts-terminology)
+
+---
+
+With these simple steps, you will have keel installed and ready to efficiently manage system processes directly from your terminal interface.
+
+Happy process hunting!
