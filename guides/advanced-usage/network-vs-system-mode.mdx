@@ -1,0 +1,197 @@
+---
+title: "Switching Between Network and System Modes"
+description: "Guide to using keel’s mode parameter to toggle between viewing regular system processes and active network connections (TCP/UDP). Explains scenarios when each mode is most useful and how to interpret the output."
+---
+
+# Switching Between Network and System Modes
+
+## Overview
+
+This guide helps you understand and effectively use the **mode** parameter in keel to toggle between viewing two primary types of data:
+
+- **Regular system processes** owned by a user
+- **Active network connections** such as TCP and UDP sockets
+
+You will learn when and why to use each mode, how to launch keel with the appropriate mode, and how to interpret what you see in the terminal interface.
+
+---
+
+## What You Will Achieve
+
+By following this guide, you will be able to:
+
+- Launch keel to monitor either system processes or network connections
+- Understand the context and use cases for each mode
+- Navigate and interpret the information displayed in each mode
+- Make informed decisions on when to switch modes based on your operational needs
+
+---
+
+## Prerequisites
+
+- keel installed on your system (see [Installation Methods](../getting-started/setup-installation/installation-methods))
+- Basic familiarity with terminal usage
+- Basic understanding of processes and network connections
+- Knowledge of the username whose processes or connections you want to monitor
+
+---
+
+## Understanding keel’s Modes
+
+keel supports two main modes that determine the type of information displayed:
+
+| Mode Name      | Description                                            | Typical Use Cases                                  |
+|----------------|--------------------------------------------------------|--------------------------------------------------|
+| `regular`      | Lists processes owned by the specified user            | Managing or terminating user/system processes     |
+| `connections`  | Lists open network connections (TCP, UDP, Unix sockets)| Monitoring, debugging, or closing network connections|
+
+---
+
+## When to Use Each Mode
+
+### Regular Mode
+Use this mode when your goal is to:
+
+- View and manage running programs and daemons
+- Identify and kill rogue or resource-heavy processes
+- Focus on a specific user’s process list to isolate activity
+
+### Connections Mode
+Use this mode for:
+
+- Inspecting current network activity and open ports
+- Identifying suspicious or unwanted TCP/UDP connections
+- Closing (killing) network connections that might indicate malicious activity or unnecessary services
+
+---
+
+## How to Switch Between Modes
+
+### Starting keel with a Mode
+To start keel with your desired mode, use the `-m` or `--mode` parameter:
+
+```bash
+python3 keel.py -u <username> -m <mode>
+```
+
+Replace `<username>` with the user you want to monitor and `<mode>` with either `regular` or `connections`.
+
+Example:
+
+```bash
+python3 keel.py -u alice -m regular
+python3 keel.py -u bob -m connections
+```
+
+### Mode Behavior in the UI
+- **Regular Mode** shows processes filtered by the specified user, each line typically displaying `PID : Process Name`.
+- **Connections Mode** shifts the display to active network connections filtered by protocol (e.g., TCP, UDP).
+
+Note: Currently, switching modes during runtime within the UI is planned but not fully implemented. You must specify the mode at launch.
+
+---
+
+## Interpreting the Output
+
+### Regular Mode Output
+You will see a list like:
+
+```
+1234 : python3
+2345 : nginx
+3456 : sshd
+```
+
+Where:
+- **PID** is the process ID you can target
+- **Process Name** helps identify the task or application
+
+Pressing `Enter` on a highlighted process will kill it.
+
+### Connections Mode Output
+The program lists sockets and connections, reflecting open network activity such as:
+
+- TCP and UDP connections
+- IPv4 and IPv6 sockets
+- Unix domain sockets
+
+Titles and details update accordingly to help you choose the connection to close.
+
+Note: This is useful in environments where network connection hygiene is crucial.
+
+---
+
+## Practical Examples
+
+### Launching keel in Regular Mode
+
+```bash
+python3 keel.py -u root -m regular
+```
+
+This command shows all processes owned by `root`. Navigate the list and press `Enter` to kill any process.
+
+### Launching keel in Connections Mode
+
+```bash
+python3 keel.py -u alice -m connections
+```
+
+This shows all open network connections, including TCP and UDP, that the specified user has open.
+
+---
+
+## Tips & Best Practices
+
+- Always verify you have the correct user before killing processes or connections.
+- Use `regular` mode for general process management—this covers most system administration tasks.
+- Switch to `connections` mode to inspect low-level network activity or to detect suspicious open connections.
+- Killing the current process running keel is prevented to avoid accidental self-termination.
+- Remember that mode switching within a session is currently not active; restart keel to switch modes.
+
+---
+
+## Troubleshooting
+
+<AccordionGroup title="Troubleshooting Mode Selection and Usage">
+<Accordion title="I see no processes or connections after launching keel">
+
+- Check if you specified the correct username with `-u`.
+- Verify the mode parameter is spelled correctly: `regular` or `connections`.
+- Ensure you have sufficient permissions to view other users' processes or system/network status.
+- If processes are missing, verify system state externally (e.g. using `ps` or `netstat`).
+
+</Accordion>
+<Accordion title="I want to switch modes while keel is running, but it doesn’t work">
+
+- Mode switching on-the-fly is a planned feature but not implemented yet.
+- Restart keel with your desired mode instead.
+
+</Accordion>
+<Accordion title="Unexpected errors when killing processes or connections">
+
+- Errors can occur if the process no longer exists or you do not have permission.
+- Check keel logs for details (see logging configuration).
+- Avoid trying to kill the process running keel itself.
+
+</Accordion>
+</AccordionGroup>
+
+---
+
+## Next Steps
+
+- Learn how to **filter processes by user** for precise control: [Filtering Processes by User](./filter-by-user)
+- Understand how to **view and navigate process lists** fully: [Viewing and Navigating Processes](./view-processes)
+- Practice **killing processes safely**: [Killing Processes Safely](./kill-process)
+
+---
+
+## Additional Resources
+
+- [keel README](https://github.com/modelorona/keel/blob/main/README.md) — Overview and installation
+- [Core Concepts & Terminology](../../keel-overview/core-concepts-architecture/keel-concepts-terminology) — Deeper understanding of keel’s modes
+
+---
+
+Feel confident switching between regular and network connection modes to maximize your process and network management efficiency with keel.
