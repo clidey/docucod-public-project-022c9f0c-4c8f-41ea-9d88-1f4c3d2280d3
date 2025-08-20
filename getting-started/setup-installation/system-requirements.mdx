@@ -1,0 +1,166 @@
+---
+title: "System Requirements & Prerequisites"
+description: "Outlines the necessary platforms, Python version, and library dependencies necessary for running keel. Provides advice on validating ncurses support and Python setup to prevent common issues."
+---
+
+# System Requirements & Prerequisites
+
+To ensure a smooth and effective experience running **keel**, it is essential to prepare your system with the correct platform, Python version, and dependencies. This guide outlines all required environments and pre-flight checks you need before installing and running keel for process and network connection management.
+
+---
+
+## 1. Supported Platforms
+
+- **Operating Systems**: keel is designed to run on Unix-like operating systems where Python 3 and ncurses support are available.
+  - Recommended: Linux distributions (Ubuntu, Debian, Fedora, CentOS, etc.)
+  - MacOS (with Python 3 installed)
+  - Not currently supported on Windows due to dependency on ncurses for the terminal user interface.
+
+
+<Tip>
+Ensure your OS terminal supports curses-based applications to avoid display issues.
+</Tip>
+
+## 2. Python Version Requirements
+
+- keel requires **Python 3** to operate.
+- It has been tested and verified on Python 3.6 and above.
+
+### Verifying Python Version
+
+Run the following command in your terminal:
+
+```bash
+python3 --version
+```
+
+Expected output example:
+
+```
+Python 3.8.10
+```
+
+If the output shows Python 2.x or no Python, install Python 3 accordingly before proceeding.
+
+
+## 3. Required Python Libraries
+
+keel relies on several essential Python libraries to interact with system processes and provide its terminal UI.
+
+| Library     | Purpose                               | Installation Command            |
+|-------------|-------------------------------------|--------------------------------|
+| `psutil`    | Access system process and network info | pip install psutil             |
+| `ncurses`   | Terminal UI rendering (via Python curses module) | Included in Python standard library on supported systems |
+
+
+The key dependency is **psutil**, which provides the interface to interact with processes and network connections relevant to keel’s core functionality.
+
+
+## 4. Validating ncurses Support
+
+- The program uses the Python **curses** library, which is a wrapper around **ncurses**.
+
+- To confirm that your environment supports ncurses, test Python’s curses module:
+
+```bash
+python3 -c "import curses; print('curses module available')"
+```
+
+If no error appears and the message prints, your system supports ncurses.
+
+
+<Warning>
+Absence of the ncurses support will result in keel not being able to launch its terminal interface.
+</Warning>
+
+## 5. User Permissions and Access
+
+- keel requires permission to read system process information.
+- For accessing or managing processes owned by other users (especially root processes), you must run keel with appropriate privileges—for example, using `sudo`.
+
+
+<Note>
+Running keel with root privileges allows full visibility into system processes and network connections but exercise caution with elevated permissions.
+</Note>
+
+## 6. Summary Checklist Before Installation
+
+- [ ] Linux or macOS system with terminal emulator supporting ncurses
+- [ ] Python 3.6 or later installed
+- [ ] `psutil` installed via pip (`pip install psutil`)
+- [ ] Confirm curses module is available
+- [ ] User access or sudo rights as needed
+
+---
+
+## Troubleshooting Common Prerequisite Issues
+
+<AccordionGroup title="Common Environment Issues">
+
+<Accordion title="Python 3 Not Found or Incorrect Version">
+
+- **Problem:** Running `python3 --version` returns Python 2.x or command not found.
+- **Solution:** Install Python 3 via your package manager (e.g., `apt install python3` on Debian/Ubuntu or `brew install python` on macOS).
+- Confirm by running `python3 --version` again.
+
+</Accordion>
+
+<Accordion title="psutil Installation Fails">
+
+- **Problem:** `pip install psutil` raises errors.
+- **Solution:** 
+  - Ensure you have Python development headers and build tools installed:
+    - On Ubuntu/Debian: `sudo apt install python3-dev build-essential`
+    - On Fedora: `sudo dnf install python3-devel gcc`
+  - Try reinstalling psutil.
+  - Consider using a virtual environment for dependency isolation.
+
+</Accordion>
+
+<Accordion title="curses Module Not Available">
+
+- **Problem:** Importing curses fails or keel crashes on launch.
+- **Solution:** 
+  - On Windows: curses is not available natively.
+  - On Linux/macOS: verify Python installation includes the curses module.
+  - Reinstall Python via official installers or package managers ensuring ncurses support.
+
+</Accordion>
+
+</AccordionGroup>
+
+---
+
+## Additional Notes
+
+- keel is a terminal-based application making extensive use of keyboard-driven navigation.
+- A compatible terminal window size (minimum width ~80 columns, height ~24 rows) is recommended to avoid UI clipping.
+
+
+---
+
+## Next Steps
+
+With your system prepared and prerequisites met, proceed to [Installing keel](/getting-started/setup-installation/installing-keel) to set up the application package and dependencies.
+
+
+---
+
+## Reference
+
+- [keel GitHub repository](https://github.com/modelorona/keel) — Source, issues, and contributions.
+- Python `psutil` documentation: https://psutil.readthedocs.io/
+- Python `curses` module documentation: https://docs.python.org/3/library/curses.html
+
+
+---
+
+For contextual understanding, refer to related documentation:
+- [Integration & Dependencies](/overview/architecture-and-concepts/integration-dependencies) for technical detail on how keel interfaces with your system.
+- [System Requirements & Prerequisites] provides foundational setup to ensure that keel can run without issues.
+- Follow with [Installing keel] to get the product ready for use.
+
+
+---
+
+# End of System Requirements & Prerequisites Documentation
