@@ -1,0 +1,99 @@
+---
+title: "Quick Feature Overview"
+description: "Get a concise list of current and planned features: process listing, process filtering by user, connection display (tcp/udp), process killing via keyboard, and support for multiple display modes (processes vs. connections). See what's implemented and what’s planned."
+---
+
+# Quick Feature Overview
+
+## Introducing keel's Core Capabilities
+
+keel is designed to streamline your process and network connection management from a single terminal interface. This page offers a snapshot of the key features currently implemented and those planned, helping you understand what you can do with keel today and what enhancements are expected soon.
+
+---
+
+## Key Features and Functionalities
+
+### 1. Process Listing and Filtering
+- **User-Specific Process Display:** Quickly retrieve all active processes owned by a specified username, allowing targeted management without clutter.
+- **Comprehensive System Process Views:** Optionally, view all processes running system-wide, supporting broader administrative oversight.
+- **Name-Based Process Filtering:** Find processes matching a specific name substring to identify and manage related tasks efficiently.
+
+### 2. Network Connection Monitoring
+- **Open Connection Display:** View active system network connections filtered by various types such as TCP, UDP, IPv4, IPv6, UNIX sockets, and more.
+- **Dynamic Filtering:** Switch easily between connection kinds to isolate particular network activities relevant to your investigative or defensive tasks.
+
+### 3. Kill Process via Keyboard Interaction
+- **Intuitive Key-Driven Control:** Select any highlighted process or open connection and kill it immediately by pressing the Enter key, minimizing steps and improving response times.
+- **Safety Checks:** Prevent accidental shutdown of the running keel process itself to avoid unintended self-termination.
+
+### 4. Multiple Display Modes
+- **Regular Mode:** Show processes owned by a specific user, ideal for focused management on particular user sessions.
+- **Connections Mode:** Display open network connections, enabling combined process and connection management within one interface.
+- **Planned Extensibility:** The foundation is in place to easily add more modes or filters for future expansions.
+
+### 5. Terminal-Based User Interface
+- **ncurses-Powered Interface:** Provides smooth, real-time navigation in the terminal with intuitive key commands.
+- **Highlight & Navigate:** Arrow keys let you browse lists with clear highlight indicators showing the currently selected item.
+- **In-Session Mode/Profile Changes (Planned):** Upcoming features include on-the-fly switching of user and mode within the interface for greater flexibility.
+
+---
+
+## Practical Examples
+
+- **Cleaning Up User Processes:** As an admin, you can start keel with a user filter to see only that user's processes, identify runaway or suspicious tasks, and kill them with a single keystroke.
+- **Monitoring Network Connections:** Quickly switch to connections mode to identify and close suspicious TCP connections during a security incident.
+- **Combined Workflow:** By integrating process and connection views in one UI, teams can drastically reduce the time spent context-switching during cyber defense operations.
+
+---
+
+## What’s Planned and Coming Soon
+
+- **On-Demand User and Mode Switching:** Users will be able to change the context directly inside the UI, avoiding restarts.
+- **Expanded Connection and Process Filtering:** More granular filters and advanced search capabilities.
+- **Enhanced Error Handling and User Feedback:** Better messages and recovery options when killing processes or switching modes.
+- **Extended Logging and Audit Trails:** Improved visibility on user actions for compliance and troubleshooting.
+
+---
+
+## Summary
+
+| Feature                     | Status        | User Benefit                                       |
+|-----------------------------|---------------|--------------------------------------------------|
+| Process Listing by Username  | Implemented   | Focused process management                         |
+| Full System Process Listing  | Implemented   | Broad system oversight                             |
+| Process Filtering by Name    | Implemented   | Targeted process identification                    |
+| Open Network Connections     | Implemented   | Monitor and manage network activity                |
+| Keyboard-Driven Process Kill | Implemented   | Fast, intuitive process termination                |
+| Multiple Modes (Processes, Connections) | Implemented   | Flexible views combined in one interface           |
+| In-Session Mode/User Change  | Planned       | Greater interaction without restarting             |
+
+---
+
+## Technical Glossary
+
+- **PID:** Process Identifier, a unique number assigned to each running process.
+- **Mode:** Defines which data set is viewed - e.g., user processes or network connections.
+- **Open Connections:** Active network sockets established on the system.
+- **ncurses:** A programming library for building terminal user interfaces.
+
+---
+
+## Getting Started with These Features
+
+To explore these features, start keel from the command line specifying a username and mode using:
+
+```bash
+python3 keel.py -u <username> -m <mode>
+```
+
+- Replace `<username>` with the system username you want to filter by.
+- Choose `<mode>` as either `regular` (process listing) or `connections` (network monitoring).
+
+From there, use arrow keys to navigate the list and press `Enter` to kill the highlighted process or close the selected connection.
+
+For more detailed instructions on installation and the core workflows, see:
+- [Installing and Launching keel](/guides/core-workflows/install-launch)
+- [Viewing and Navigating Processes](/guides/core-workflows/view-processes)
+- [Killing Processes Safely](/guides/core-workflows/kill-process)
+
+---
