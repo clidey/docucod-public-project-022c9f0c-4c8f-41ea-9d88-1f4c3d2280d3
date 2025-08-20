@@ -1,0 +1,126 @@
+---
+title: "Viewing Network Connections"
+description: "Step through viewing active TCP, UDP, and other network connections alongside processes. This guide details how to toggle and interpret connection information within keel."
+---
+
+# Viewing Network Connections
+
+Explore how to monitor and understand active network connections in keel. This guide walks you through toggling the display of TCP, UDP, and other connection types, alongside related process information, so you can quickly assess network activity on your system.
+
+---
+
+## 1. Workflow Overview
+
+### Task Description
+This guide enables you to view all active network connections and the processes associated with them within keel’s interface. Whether you need to inspect network traffic, troubleshoot connectivity issues, or understand how your applications communicate, this page is your go-to tool.
+
+### Prerequisites
+- keel installation completed and running on your system.
+- Basic familiarity with keel’s UI navigation.
+- Appropriate permissions to view process and network data on your machine.
+
+### Expected Outcome
+You will be able to:
+- View live records of active TCP, UDP, and other network connections.
+- Identify which processes own specific network connections.
+- Interpret the status and details of each network connection.
+- Toggle visible connection types to focus on relevant data.
+
+### Time Estimate
+5–10 minutes to comfortably familiarize and navigate the network connections view.
+
+### Difficulty Level
+Beginner to Intermediate.
+
+---
+
+## 2. Step-by-Step Instructions
+
+<Steps>
+<Step title="Open the Network Connections Page">
+Navigate to the 'Viewing Network Connections' page via the keel main menu or process management section.
+
+**Expected result:** The interface displays a tabular view of current network connections.
+</Step>
+<Step title="Understand the Connection Table">
+The table lists active connections with columns such as:
+- **Protocol:** Type of connection like TCP, UDP
+- **Local Address:** The IP and port on your machine
+- **Remote Address:** The endpoint your machine connects to or listens on
+- **Process:** Name and ID of the owning process
+- **Status:** Connection state (e.g., ESTABLISHED, LISTENING)
+- **Additional Info:** May include connection duration or data statistics
+
+**Expected result:** You recognize what each column represents.
+</Step>
+<Step title="Filter Connection Types">
+Use available toggles or filters to display only the desired protocols (like only TCP or only UDP).
+
+- Locate filter controls, often as checkboxes or toggles above or beside the table.
+- Select or deselect protocol types to customize the view.
+
+**Expected result:** The table updates to show only the selected connection types.
+</Step>
+<Step title="Identify Process Relationships">
+Select a connection entry to highlight or reveal more process details, such as:
+- Full process path
+- User running the process
+- Related network statistics
+
+This may happen through clicking the row or an expand icon.
+
+**Expected result:** You confirm which process owns each connection and see relevant details.
+</Step>
+<Step title="Interpret Connection Status">
+Understand the meaning of status codes:
+- **ESTABLISHED:** Active connection
+- **LISTENING:** Waiting for incoming connections
+- **TIME_WAIT, CLOSE_WAIT, etc.:** Various TCP states indicating connection lifecycle phases
+
+Refer to any UI hover tooltips or documentation for exact definitions.
+
+**Expected result:** You accurately interpret the connection states.
+</Step>
+</Steps>
+
+---
+
+## 3. Best Practices & Tips
+
+- Regularly refresh the connection view to see live updates, especially when troubleshooting network issues.
+- Use protocol filtering to reduce noise and focus on connections of interest.
+- Combine this view with process filtering to tie network behavior directly to application activity.
+- When investigating suspicious connections, note remote addresses and cross-reference with known IP lists.
+
+---
+
+## 4. Troubleshooting
+
+### Issue: No connections appear in the table
+- Confirm keel has permissions to access network and process data (may require running as administrator/root).
+- Refresh the page or restart keel.
+- Verify network activity is occurring on the system.
+
+### Issue: Process column shows blank or unknown for connections
+- Some system processes or kernel services may not expose detailed info.
+- Check if keel is running with sufficient privileges.
+
+### Issue: Filters not updating the connection list
+- Ensure filter controls are enabled and toggled properly.
+- Reload or restart the page in keel.
+
+---
+
+## 5. Next Steps & Related Pages
+
+- Explore **Filtering Processes by User** to narrow connections by user context.
+- Learn about **Killing Processes from the Interface** to control problematic processes discovered via connections.
+- Review **Core Features at a Glance** for broader keel capabilities.
+
+---
+
+## Additional Resources
+- keel GitHub Repository: [https://github.com/modelorona/keel](https://github.com/modelorona/keel)
+- keel Main Documentation Navigation: Navigate to related pages via the [keel documentation site](https://your-keel-docs-site/)
+
+---
