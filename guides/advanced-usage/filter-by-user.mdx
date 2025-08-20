@@ -1,0 +1,188 @@
+---
+title: "Filtering Processes by User"
+description: "Tutorial for switching the keel view to display only processes owned by specific users. Covers use of the -u parameter and practical scenarios like isolating potential threats or focusing on service accounts."
+---
+
+# Filtering Processes by User
+
+## Overview
+
+This guide shows you how to filter the process list in keel to display only processes owned by specific users. Using the `-u` parameter at launch, you can isolate processes by username, enabling focused monitoring and management. This is essential for cyber defense teams or system administrators who need to quickly examine activity related to particular users—for example, service accounts or potential threat actors.
+
+### What This Guide Covers
+- How to use the `-u` (username) parameter to restrict process display
+- Practical scenarios where filtering by user improves workflow
+- Step-by-step instructions to launch keel with user filtering
+- Tips to verify correct filtering and troubleshoot common issues
+
+---
+
+## Prerequisites
+
+- keel installed and accessible on your system
+- Basic familiarity with running Python command-line scripts
+- Access permissions to view processes of other system users (may require root or elevated privileges)
+
+Ensure you have installed keel via pip or from source, and can run `python3 keel.py` with command-line parameters. Refer to [Installation & Dependencies](/keel-overview/integration-getting-started/installation-dependencies) for setup guidance.
+
+---
+
+## Expected Outcome
+
+By following this guide, you will successfully launch keel displaying only the processes owned by a specified user, enabling focused process management or investigation within the terminal UI.
+
+You will be able to:
+- View the process list filtered by a single username
+- Kill processes easily within this filtered context
+- Confidently interpret the UI showing only relevant user-owned processes
+
+---
+
+## Time Estimate
+
+Setting up and running keel with user filtering takes approximately 5 minutes.
+
+---
+
+## Difficulty Level
+
+Beginner to Intermediate: Basic command-line usage and terminal navigation.
+
+---
+
+## Step-by-Step Instructions
+
+### 1. Identify the Username to Filter
+
+Decide the user whose processes you want to isolate. Common examples:
+- `root` for system-level processes
+- Service accounts like `www-data` or `postgres`
+- Individual user accounts for troubleshooting or monitoring
+
+### 2. Run keel with the `-u` Parameter
+
+Open your terminal and run keel by specifying the target username with the `-u` parameter and a required mode with `-m`.
+
+```bash
+python3 keel.py -u target_username -m regular
+```
+
+Replace `target_username` with the desired username.
+
+**Example:** To view processes owned by `root` in regular mode:
+
+```bash
+python3 keel.py -u root -m regular
+```
+
+### 3. Understand the `-m` (Mode) Parameter
+
+The `-m` parameter specifies the keel mode:
+- `regular`: Lists standard system processes owned by the user
+- `connections`: Lists network connections associated with user processes
+
+For filtering by user processes, use `regular` mode.
+
+### 4. Navigate the Terminal UI
+
+Once launched, you will see a scrollable, interactive list of processes owned by the specified user.
+
+- Use Up/Down arrow keys to navigate
+- Highlighted process details include PID and process name
+- Press Enter to kill the selected process (exercise caution)
+- Press `q` to exit
+
+### 5. Verify User Filtering
+
+At the top of the UI, check the title bar for confirmation:
+
+```
+Choose a process to kill and hit enter, user: [username], mode: Regular
+```
+
+Ensure `[username]` matches your filtered user.
+
+### 6. Kill a Process (Optional)
+
+If you identify a process to terminate:
+- Highlight it using arrow keys
+- Press Enter to kill
+- The process list will update automatically
+
+Be cautious when killing system-critical or unknown processes.
+
+### 7. Exit keel
+
+Press `q` to quit the UI once your tasks are complete.
+
+---
+
+## Practical Scenarios
+
+- **Isolating suspicious activity:** Focus on a suspected user account potentially causing issues.
+- **Managing service accounts:** Quickly identify and manage processes for accounts like `mysql` or `apache`.
+- **Performance monitoring:** Narrow down to processes of a single user for clearer diagnostics.
+
+---
+
+## Troubleshooting & Tips
+
+<AccordionGroup title="Common Issues & Solutions">
+<Accordion title="Empty Process List after Filtering">
+If you see no processes listed:
+- Verify the username is correct and exists on the system.
+- Check your permissions; viewing other users’ processes may require root.
+- Confirm the mode is set to `regular`.
+- Try running keel without `-u` to see all processes as a control.
+</Accordion>
+<Accordion title="Permission Denied or Access Errors">
+- Run keel as root or with `sudo` if necessary.
+- Confirm your user account has sufficient access to process information.
+</Accordion>
+<Accordion title="Forcing Exit if UI Unresponsive">
+- Press `q` to quit normally.
+- If unresponsive, use `Ctrl+C` to terminate the program.
+</Accordion>
+</AccordionGroup>
+
+### Best Practices
+
+- Always verify the username spelling precisely; partial or incorrect input may yield no results.
+- Avoid killing processes unless you are certain of their impact.
+- Use filtering as a way to reduce noise and focus your monitoring.
+
+### Performance Considerations
+
+Filtering by user decreases the number of displayed processes, improving UI responsiveness when system-wide processes number is very large.
+
+### Alternative Approaches
+
+- To view all processes regardless of user, run without the `-u` parameter (currently defaults to `root` if `-u` is not provided).
+- Explore filtering by network connections mode (`-m connections`) for user network activity.
+
+---
+
+## Next Steps & Related Content
+
+- Explore [Switching Between Network and System Modes](/guides/advanced-usage/network-vs-system-mode) to toggle between connections and regular process views.
+- Learn about [Killing Processes Safely](/guides/core-workflows/kill-process) for advanced process termination techniques.
+- Set up your environment by reviewing the [Installation & Dependencies](/keel-overview/integration-getting-started/installation-dependencies).
+- Validate your setup with the [First Successful Run](/getting-started/first-run-validation/first-successful-run) guide.
+
+---
+
+## Example Command
+
+```bash
+python3 keel.py -u alice -m regular
+```
+
+This launches keel showing only processes owned by user `alice`.
+
+---
+
+## Summary
+
+Filtering processes by user in keel provides targeted control over system monitoring. By launching keel with the `-u` parameter, users efficiently isolate and manage processes for specific accounts, enhancing focus during cyber defense or system administration tasks.
+
+For further refinement and operational mastery, explore related guides on mode switching and safe process killing.
