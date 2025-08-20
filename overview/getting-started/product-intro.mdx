@@ -1,0 +1,151 @@
+---
+title: "What is keel?"
+description: "An introduction to keel, summarizing its purpose: providing an integrated interface for viewing and managing processes and network connections through a single terminal with ncurses. Explains why keel was built and the problems it helps solve."
+---
+
+# What is keel?
+
+Keel is a lightweight, terminal-based tool designed to simplify how you view and manage running processes and network connections on your system. By consolidating multiple operational aspects into a single ncurses-powered interface, keel empowers you to monitor and control key system elements without juggling multiple terminal windows or commands.
+
+## Bringing Clarity to Process and Network Management
+
+Imagine defending a server under attack and needing to switch rapidly between open network connections and active processes across various user contexts. Traditionally, this requires multiple terminal windows or complex command-line juggling. Keel was born out of that exact challenge during a cyber defense hackathon at the University of Glasgow—a focused response to unify these views and streamline interaction into one intuitive terminal window.
+
+## Why keel Matters to You
+
+- **Unified Interface:** View both system processes and network connections via the same terminal UI without jumping between tools.
+- **User-Centric:** Filter and manage processes based on specific usernames, making targeted control straightforward.
+- **Keyboard-Driven Efficiency:** Navigate, select, and kill processes or close connections using simple keyboard commands within a curses interface.
+- **Mode Flexibility:** Quickly switch between managing regular processes and open network connections depending on your operational needs.
+- **Lightweight & Portable:** Built in Python with ncurses, keel runs smoothly in any POSIX compliant terminal environment.
+
+## Who Should Use keel?
+
+- **System Administrators and Security Professionals** who need a fast, integrated view of processes and network connections.
+- **Developers and Operations Engineers** seeking a minimalistic yet powerful tool for process control.
+- **Cyber Defense Teams** in time-sensitive scenarios requiring rapid action on suspicious processes or connections.
+
+
+---
+
+## What Is keel?
+
+At its core, keel is a Python 3 application that leverages ncurses to present a terminal user interface where you can list, inspect, and terminate processes or close network connections. It eliminates the hassle of multiple terminals or complex commands by presenting all relevant information in a centralized, interactive view.
+
+This focus on terminal-based interaction through keyboard-driven commands lets you accomplish vital tasks swiftly—whether you want to kill a troublesome process owned by a particular user or close an open TCP or UDP connection.
+
+## The Problem keel Solves
+
+The motivating challenge was the fragmented nature of system monitoring during a cyber defense event: having separate windows for connections and process control led to delays and confusion. Keel integrates those views to streamline your workflow and reduce distractions.
+
+By combining viewing and killing capabilities for processes with the ability to view and close network connections, keel enables you to maintain system health and security without jumping contexts.
+
+
+---
+
+## How keel Works
+
+Keel runs as a command-line application you launch with parameters specifying the user context (e.g., root or any specific username) and the mode you want to start in: either managing processes or managing network connections. Once running, the tool displays a centered list you can navigate with arrow keys, highlights selections, and lets you perform kills or connection closures with a simple keypress.
+
+Beneath the interface, keel uses the [psutil](https://github.com/giampaolo/psutil) library to gather live system information about processes and connections, ensuring you always interact with up-to-date data.
+
+
+---
+
+## Core Features of keel
+
+- **User-Specific Process Listing:** Focus on processes owned by a particular user, helpful for targeting tasks or isolating one's own sessions.
+
+- **Process Termination:** Kill any selected process swiftly by pressing enter, with careful safeguards to prevent killing the tool itself.
+
+- **Open Network Connections View:** Switch into a mode showing all open system connections filtered by types such as TCP (inet4, inet6), UDP, UNIX sockets, and more.
+
+- **Simple Mode Switching:** Although currently limited to startup parameter mode selection, the framework supports easy mode expansion for future enhancements.
+
+- **Interactive Terminal UI:** Offers keyboard control with highlighting, scrolling, and real-time refreshes for an intuitive experience.
+
+### Real-World Scenario
+
+During a security incident, you can launch keel targeting the root user in connections mode to quickly inspect all open TCP connections. Navigating the list via arrow keys, identify suspicious connections and close them immediately without leaving your terminal or shifting views.
+
+Alternatively, switch to process mode filtered by a particular user to clean up zombie or duplicate processes, all within the same interface.
+
+
+---
+
+## Why Should I Care?
+
+### Outcomes You Can Expect
+
+- **Faster Incident Response:** Less context-switching means quicker decisions.
+- **Focused Control:** Filter processes by user to avoid affecting unrelated sessions.
+- **Unified Tools:** Reduces dependency on multiple terminal sessions and complex command-line inputs.
+- **Ease of Use:** Keyboard-centric interaction streamlines navigation and action execution.
+
+### Common Use Cases
+
+- Troubleshooting high resource usage by killing runaway user processes.
+- Monitoring and closing unauthorized or broken network connections on the fly.
+- Maintaining a clean terminal view for managing system processes without leaving your console.
+
+### Before and After keel
+
+| Before keel                         | After keel                          |
+|-----------------------------------|-----------------------------------|
+| Multiple terminal windows open    | Single, consolidated interface     |
+| Manual, error-prone process killing | Keyboard-controlled, visual selection |
+| Switching between commands/apps   | Seamless mode switching with filters |
+
+
+---
+
+## Getting Started Preview
+
+To start using keel, you will run it from the terminal specifying the username context and the mode you want:
+
+```bash
+python3 keel.py -u root -m regular
+# or for connections mode:
+python3 keel.py -u root -m connections
+```
+
+### Prerequisites
+
+- Python 3 installed
+- `psutil` and curses (standard in most Unix-like systems)
+
+### Next Steps
+
+Explore the [Running keel for the First Time](/getting-started/first-steps/running-keel) guide to understand launching and initial navigation. Then, dive into [Filtering Processes by User](/guides/process-management/filter-users) and [Viewing Network Connections](/guides/process-management/view-connections) to master keel's core capabilities.
+
+
+---
+
+## Helpful Tips and Best Practices
+
+- Always specify an existing username to avoid unexpected behavior.
+- Use root with caution; the tool allows killing any process including system-critical ones.
+- Press 'q' to exit the interface safely.
+- While in the list view, navigate with arrow keys and press enter to terminate highlighted processes or close connections.
+
+
+---
+
+## Troubleshooting Common Issues
+
+- **No processes listed:** Check if the username specified exists or has processes running.
+- **No network connections shown:** Confirm you selected the correct mode (`connections`) and that there are active connections.
+- **Unexpected crashes or errors:** Ensure dependencies (`psutil`, Python 3) are properly installed.
+
+
+---
+
+By combining process and connection management into a singular, accessible terminal UI, keel transforms routine system administration into a more intuitive, efficient task. It equips you with direct control when it counts, delivering clarity and speed in a compact, keyboard-friendly package.
+
+Embrace keel and regain control of your terminal with confidence and precision.
+
+---
+
+<Info>
+Learn more about keel's installation and detailed usage in the [Installing keel](/getting-started/setup-installation/installing-keel) and [Launching keel: Core Usage Workflow](/guides/getting-started/launch-basic) documentation.
+</Info>
