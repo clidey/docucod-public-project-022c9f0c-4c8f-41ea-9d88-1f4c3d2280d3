@@ -1,0 +1,183 @@
+---
+title: "Integration Points & Extensibility"
+description: "Review keel’s current integration model: running as a Python script, passing runtime parameters (user, mode), and interacting with underlying system processes. Outlines extensibility points and planned CLI support."
+---
+
+# Integration Points & Extensibility
+
+Unlock deeper control and adaptability with keel’s integration model. This page explains how keel operates as a Python script driven by clear runtime parameters, interacts with your system processes, and lays the groundwork for extensibility—empowering users to customize and extend functionality to fit their needs.
+
+---
+
+## Why Integration & Extensibility Matter
+
+Imagine needing to quickly identify and terminate troublesome processes or close network connections across different users — all from a single, streamlined terminal session. keel achieves this by integrating tightly with the underlying operating system while providing a flexible interface that accepts user inputs and modes as parameters. As your usage grows more sophisticated, keel’s extensibility points ensure it can evolve to meet your operational demands.
+
+---
+
+## How keel Integrates: The Current Model
+
+keel runs as a standalone Python script (`keel.py`) designed for command-line execution. You start it by specifying two crucial runtime parameters:
+
+- **User** (`-u` or `--username`): Defines which system user's processes to monitor. If omitted, it defaults to `root`.
+- **Mode** (`-m` or `--mode`): Selects what kind of process view should start — either regular system processes or network connections.
+
+This parameterization enables users to tailor the session from the outset without navigating complex menus, streamlining workflows and focusing on mission-critical actions.
+
+### User & Mode Parameters Explained
+
+- **User:**
+  - Enter any valid system username to filter processes owned by that user.
+  - Defaults to `root` if no username is specified, providing a broad overview of system-wide processes.
+
+- **Mode:**
+  - `regular`: Lists all standard processes for the selected user.
+  - `connections`: Displays open network connections (TCP/UDP and variants), enabling quick management of active communications.
+
+
+## Interaction with System Processes
+
+keel leverages the powerful `psutil` Python library to interface with your system’s process and connection information. This under-the-hood integration allows keel to:
+
+- Fetch process details filtered by username.
+- Enumerate all open network connections of various types.
+- Kill processes safely by PID with built-in safeguards (e.g., it won’t allow the script to kill itself).
+
+This direct access gives users precise, low-latency control over system resources.
+
+<AccordionGroup title="Key Integration Components">
+<Accordion title="Runtime Parameter Parsing">
+The program uses Python’s `argparse` library to interpret command-line inputs, enforcing required parameters and valid choices. This keeps starting keel simple but predictable.
+</Accordion>
+<Accordion title="Process & Connection Retrieval">
+Functions in `util_ps.py` encapsulate system queries via `psutil`:
+
+- `get_proc_by_username(username)`: Returns process list for the specified user.
+- `get_open_con(kind)`: Retrieves active network connections matching the kind (tcp, udp, inet, etc.).
+
+These are exposed through modes.
+</Accordion>
+<Accordion title="Kill Operation Safeguards">
+When requesting to kill a process by PID, keel checks:
+
+- You cannot kill the process running keel itself.
+- The PID exists at the time of kill request.
+- Invalid or None PID values raise errors to prevent accidental termination.
+
+This reduces risk during quick operations.
+</Accordion>
+</AccordionGroup>
+
+## Extensibility Points & Planned CLI Support
+
+While keel currently functions as a Python script with user and mode parameters, it is designed with extensibility in mind:
+
+- **Modes Architecture:** The modular mode classes permit adding new modes with customized process views and behaviors (e.g., filtering by other criteria or supporting different resource types).
+
+- **User & Mode Switching:** While currently set at start-up, the UI skeleton includes hooks for switching modes and users dynamically, an anticipated enhancement.
+
+- **Future CLI Enhancements:** Plans include expanding command-line interface (CLI) options for:
+  - Advanced filtering.
+  - Batch operations.
+  - Integration with other command-line tools and scripts.
+
+- **Logging & Diagnostics:** keel includes a logging framework ready to be extended into a universal logger to facilitate audit trails and troubleshooting.
+
+These extensions keep keel adaptable to evolving user requirements and workflows.
+
+## Real-World Scenario: Fast Process Management in a Security Incident
+
+A cyber defense analyst suspects a rogue connection on a server. They launch keel with:
+
+```bash
+python3 keel.py -u root -m connections
+```
+
+keel immediately displays all open network connections owned by root. The analyst highlights suspicious entries and kills unwanted connections with a keystroke — all without leaving the terminal.
+
+Next, the analyst switches to the user’s processes (planned feature) to track related processes, illustrating how integration and extensibility directly support rapid response.
+
+---
+
+## Practical Tips & Best Practices
+
+- **Always specify a valid username:** To avoid confusion, confirm the user exists on the system, especially when automating keel.
+
+- **Start with the appropriate mode:** Use `connections` mode for network-related investigations and `regular` for general process management.
+
+- **Avoid killing the script itself:** keel’s safeguards minimize risk, but remain cautious when terminating processes by PID.
+
+- **Monitor logs for insights:** The built-in logging to `output.log` helps trace actions and spot issues during use.
+
+- **Prepare for multi-user environments:** In multi-administrator scenarios, switching users and modes dynamically will soon be supported to enhance collaboration.
+
+---
+
+## Troubleshooting Common Integration Issues
+
+<AccordionGroup title="Common Issues & Solutions">
+<Accordion title="Incorrect or Missing Parameters">
+keel requires both `-u` and `-m` at launch. If missing or incorrect, it will not start and show help.
+
+Ensure you provide both, for example:
+
+```bash
+python3 keel.py -u alice -m regular
+```
+</Accordion>
+<Accordion title="Process List is Empty or Incomplete">
+Verify the username is correct and has running processes.
+Permissions may restrict visibility; consider running with elevated privileges if necessary.
+</Accordion>
+<Accordion title="Cannot Kill a Process">
+Check if the PID is still active. keel prevents killing itself or invalid PIDs.
+Inspect `output.log` for detailed error messages.
+</Accordion>
+</AccordionGroup>
+
+---
+
+## Getting Started Preview
+
+Starting keel with integration in mind is straightforward:
+
+```bash
+python3 keel.py -u <username> -m <mode>
+```
+
+- Replace `<username>` with a valid system user.
+- Choose `<mode>` as `regular` or `connections` depending on your task.
+
+Once launched, you can highlight processes or connections and kill them with the Enter key.
+
+For further setup and usage details, visit the [Installation & Dependencies](../installation-dependencies) page.
+
+---
+
+## Diagram: keel Integration Flow
+
+```mermaid
+flowchart TD
+  A[Start: Run keel.py script]
+  A --> B{Parse runtime parameters}
+  B -->|Username valid| C[Setup TerminalUI with user]
+  B -->|Mode valid| D[Select Mode Instance]
+  D --> E[Fetch data via psutil]
+  E --> F[Display processes or connections in UI]
+  F --> G[User navigates and selects item]
+  G --> H{User presses Enter to kill?}
+  H -->|Yes| I[Attempt kill via util_ps.kill_pid(PID)]
+  H -->|No| F
+  I --> J{Kill success?}
+  J -->|Yes| F
+  J -->|Error| K[Log error and notify user]
+  F --> L[User presses q to quit]
+  L --> M[Exit program]
+```
+
+---
+
+For full details on modes and UI, explore the [Core Concepts & Terminology](../core-concepts-terminology) and [Quick Feature Overview](../key-features-preview) pages.
+
+
+---
