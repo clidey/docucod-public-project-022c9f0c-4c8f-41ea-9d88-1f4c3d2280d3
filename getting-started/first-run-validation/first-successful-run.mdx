@@ -1,0 +1,218 @@
+---
+title: "First Successful Run"
+description: "Guide the user through executing keel for the first time, interpreting the UI (ncurses process list), and killing a process with the Enter key. Covers expected outputs and UX basics to get users oriented."
+---
+
+# First Successful Run
+
+This guide walks you through running **keel** for the very first time, helping you launch the program, understand the ncurses-based terminal UI, and perform your first process kill using the key controls. You'll learn how to interpret the displayed process list, interact with it intuitively, and verify successful operation.
+
+---
+
+## 1. Launching keel for the First Time
+
+Before launching keel, ensure you have installed it and meet all prerequisites outlined in the installation and requirements documentation.
+
+### Step 1: Open your terminal
+
+- Use a Unix-like terminal (Linux, macOS, or compatible shell on Windows).
+
+### Step 2: Run keel with required parameters
+
+keel requires two mandatory parameters:
+
+- `-u / --username` — The username whose processes you want to view and manage. If unsure, use a valid system username or `root`.
+- `-m / --mode` — The mode to run the program in. For your first run, use `regular` to see processes.
+
+Example command:
+
+```bash
+python3 keel.py -u your_username -m regular
+```
+
+Replace `your_username` with an actual username on your system.
+
+<Tip>
+If you are unsure of usernames on your system, use the `whoami` command to find your current user.
+</Tip>
+
+### Step 3: Confirm program start
+
+Upon running, the terminal window switches to keel's interface showing a list of processes owned by the specified user.
+
+If keel encounters an error, check prerequisites and parameter spelling, and review the troubleshooting guide linked below.
+
+---
+
+## 2. Understanding the User Interface
+
+The keel UI is built with the **ncurses** library. It displays an interactive list of processes.
+
+### What you see at a glance:
+
+- **Title Bar:** Centered at the top, displaying the current mode, user, and instructions (e.g., _Choose a process to kill and hit enter_).
+- **Process List:** Each item shows a process as `PID : ProcessName`.
+- **Cursor Highlight:** The currently selected process is highlighted. Use arrow keys to move the cursor.
+
+### Navigation Controls:
+
+- **Up/Down Arrow Keys:** Move the highlight up or down through the visible processes.
+- **Left/Right Arrow Keys:** Supported but do not change functionality significantly in the first run.
+- **Enter Key:** Kill the highlighted process.
+- **q Key:** Exit the program.
+
+<Tip>
+Always ensure you choose the correct process before hitting Enter to kill it. Accidentally killing critical system processes may cause instability.
+</Tip>
+
+---
+
+## 3. Running Your First Operation: Killing a Process
+
+Performing your first kill operation validates that keel is working as intended.
+
+### Step 1: Select a process
+
+Use the **arrow keys** to move the highlight to a safe, non-critical process you want to terminate. For first experiments, pick a user-level process that you started manually.
+
+### Step 2: Press Enter
+
+Press the **Enter** key to send a kill command to the selected process. keel uses underlying system calls through Python’s psutil library to terminate the process.
+
+### Step 3: Observe the UI change
+
+- The killed process disappears from the list immediately.
+- Remaining processes below shift upwards to fill space.
+- The highlight moves to an adjacent process.
+
+<Tip>
+If the process cannot be killed (e.g., it's a system process or exited already), keel will silently ignore the failure but log the attempt internally.
+</Tip>
+
+### Step 4: Continue or quit
+
+- Continue browsing and killing other processes as needed.
+- Press **q** to exit keel cleanly when finished.
+
+---
+
+## 4. Expected Output and Behavior
+
+- Upon successful program start, the terminal UI displays with:
+  - Title indicating mode and user.
+  - A scrollable list of user processes shown as `pid : name`.
+- Cursor highlights one process, moving up/down with arrow keys.
+- Pressing Enter removes (kills) the highlighted process.
+- Empty process list or quitting exits the program cleanly.
+
+<Tip>
+If you see no processes or the UI fails to appear, verify that the username is valid and that you have permissions to list processes.
+</Tip>
+
+---
+
+## 5. Troubleshooting Common Issues
+
+<AccordionGroup title="Common First Run Issues">
+<Accordion title="Program fails to start or crashes immediately">
+- Ensure you run with Python 3.
+- Confirm `psutil` and other dependencies are installed.
+- Check your command line syntax and parameters.
+- Review log files `output.log` for error details.
+</Accordion>
+<Accordion title="Process list is empty or shows limited entries">
+- Verify you specified the correct username.
+- Some system users have no accessible processes.
+- Run as root or use `sudo` if you need elevated permissions.
+</Accordion>
+<Accordion title="Unable to kill processes">
+- Some processes are protected and require root privileges.
+- Do not attempt to kill critical system processes.
+- Confirm your user has rights to terminate the targeted process.
+</Accordion>
+<Accordion title="UI displays incorrectly or is unusable">
+- Ensure your terminal supports ncurses (common in standard terminals).
+- Resize the terminal window larger to see more processes.
+- Avoid running under unsupported terminals or IDE consoles.
+</Accordion>
+</AccordionGroup>
+
+---
+
+## 6. Best Practices for Your First Run
+
+- Start using a non-critical user to avoid accidental system disruption.
+- Familiarize yourself with the arrow keys and Enter usage before attempting to kill processes.
+- Use the `q` key to exit gracefully.
+- Experiment on processes you started yourself (e.g., simple background scripts) to understand behavior safely.
+
+---
+
+## 7. Next Steps
+
+After successfully running keel and performing your first process kill, proceed to:
+
+- [Troubleshooting Common Issues](/getting-started/first-run-validation/troubleshooting-common-issues) if you encountered problems.
+- Explore [Filtering Processes by User](/guides/advanced-usage/filter-by-user) to refine your views.
+- Try switching modes to manage network connections by using `-m connections` as mode.
+- Deepen your understanding with [Core Concepts & Terminology](/keel-overview/core-concepts-architecture/keel-concepts-terminology).
+
+---
+
+For official repository, bugs, and contributions visit [keel GitHub repository](https://github.com/modelorona/keel).
+
+
+---
+
+# Quick Reference: Basic Commands
+
+| Action                  | Key           |
+|-------------------------|---------------|
+| Move Up                 | ↑ (Up arrow)  |
+| Move Down               | ↓ (Down arrow)|
+| Kill Highlighted Process| Enter         |
+| Quit keel               | q             |
+
+
+---
+
+## Example Session
+
+```bash
+$ python3 keel.py -u alice -m regular
+```
+
+- Terminal switches to keel interface.
+- Title shows: "Choose a process to kill and hit enter, user: alice, mode: Regular"
+- List shows:
+
+```plaintext
+  12345 : python3
+  23456 : vim
+  34567 : bash
+```
+
+- Use arrow keys to highlight `vim`.
+- Press Enter.
+- `vim` process disappears instantly.
+- Remaining list shifts up.
+- Press `q` to exit.
+```
+
+---
+
+This completes your first successful run with keel.
+
+
+---
+
+# Additional Resources
+
+- [Installation & Dependencies](../../keel-overview/integration-getting-started/installation-dependencies)
+- [Prerequisites & System Requirements](../setup-installation/prerequisites-requirements)
+- [Configuration & Initial Setup](../setup-installation/configuration-setup)
+- [First Run Troubleshooting](./troubleshooting-common-issues)
+- [Core Concepts & Terminology](../../keel-overview/core-concepts-architecture/keel-concepts-terminology)
+
+
+---
