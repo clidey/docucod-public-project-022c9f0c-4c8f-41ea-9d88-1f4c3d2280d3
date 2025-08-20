@@ -26,19 +26,26 @@
       {
         "groups": [
           {
-            "group": "Getting to Know keel",
+            "group": "Introduction \u0026 Product Value",
             "pages": [
-              "overview/getting-started/product-intro",
-              "overview/getting-started/use-cases-audience",
-              "overview/getting-started/feature-overview"
+              "keel-overview/introduction-and-value/what-is-keel",
+              "keel-overview/introduction-and-value/why-use-keel",
+              "keel-overview/introduction-and-value/target-audience-use-cases"
             ]
           },
           {
-            "group": "Architecture \u0026 Core Concepts",
+            "group": "Core Concepts \u0026 Architecture",
             "pages": [
-              "overview/architecture-and-concepts/system-overview-diagram",
-              "overview/architecture-and-concepts/core-concepts-terminology",
-              "overview/architecture-and-concepts/integration-dependencies"
+              "keel-overview/core-concepts-architecture/keel-concepts-terminology",
+              "keel-overview/core-concepts-architecture/architecture-diagram",
+              "keel-overview/core-concepts-architecture/key-features-preview"
+            ]
+          },
+          {
+            "group": "Integration \u0026 Getting Started",
+            "pages": [
+              "keel-overview/integration-getting-started/installation-dependencies",
+              "keel-overview/integration-getting-started/system-integration-potential"
             ]
           }
         ],
@@ -49,17 +56,17 @@
           {
             "group": "Setup \u0026 Installation",
             "pages": [
-              "getting-started/setup-installation/system-requirements",
-              "getting-started/setup-installation/installing-keel",
-              "getting-started/setup-installation/troubleshooting-installation"
+              "getting-started/setup-installation/prerequisites-requirements",
+              "getting-started/setup-installation/installation-methods",
+              "getting-started/setup-installation/configuration-setup"
             ]
           },
           {
-            "group": "First Run \u0026 Initial Usage",
+            "group": "First Run \u0026 Validation",
             "pages": [
-              "getting-started/first-steps/running-keel",
-              "getting-started/first-steps/first-successful-usage",
-              "getting-started/first-steps/common-setup-issues"
+              "getting-started/first-run-validation/first-successful-run",
+              "getting-started/first-run-validation/troubleshooting-common-issues",
+              "getting-started/first-run-validation/quick-validation-steps"
             ]
           }
         ],
@@ -68,19 +75,19 @@
       {
         "groups": [
           {
-            "group": "Getting Started",
+            "group": "Getting Started \u0026 Core Workflows",
             "pages": [
-              "guides/getting-started/installation",
-              "guides/getting-started/launch-basic",
-              "guides/getting-started/help-and-parameters"
+              "guides/core-workflows/install-launch",
+              "guides/core-workflows/view-processes",
+              "guides/core-workflows/kill-process"
             ]
           },
           {
-            "group": "Process \u0026 Connection Management",
+            "group": "Advanced Usage and Scenarios",
             "pages": [
-              "guides/process-management/filter-users",
-              "guides/process-management/process-control",
-              "guides/process-management/view-connections"
+              "guides/advanced-usage/filter-by-user",
+              "guides/advanced-usage/network-vs-system-mode",
+              "guides/advanced-usage/defensive-ops-use-case"
             ]
           }
         ],
