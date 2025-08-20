@@ -1,0 +1,136 @@
+---
+title: "Running keel for the First Time"
+description: "Shows how to launch keel interactively using the main script and command-line options. Includes guidance on using help, passing user (-u) and mode (-m) parameters, and expected behaviors on launch."
+---
+
+# Running keel for the First Time
+
+Welcome to your first interactive session with **keel**, a terminal-based tool designed to help you quickly view and kill processes or manage open network connections right from your command line. This guide will walk you through launching keel, understanding the necessary parameters, and what to expect upon startup.
+
+---
+
+## 1. Understanding keel's Launch Parameters
+
+When you run keel, you must specify two essential options via command-line arguments:
+
+- `-u` or `--username`: The user whose processes or connections you want to monitor. If omitted, `root` is used by default.
+- `-m` or `--mode`: The mode in which keel operates. Modes determine the type of items listed. You must choose between:
+  - `regular` — to list processes owned by the specified user.
+  - `connections` — to manage and view open network connections.
+
+These parameters tailor keel's behavior to your monitoring and management needs.
+
+### Example: Viewing your own user processes
+```bash
+python3 keel.py -u your_username -m regular
+```
+
+### Example: Viewing all open network connections
+```bash
+python3 keel.py -u root -m connections
+```
+
+
+> Note: Always run this from a terminal that supports curses for the best interactive experience.
+
+
+## 2. Displaying Help Information
+
+If you want to check what parameters keel accepts, or see the usage guide, run:
+
+```bash
+python3 keel.py -h
+```
+
+This will display a concise description of both options, their expected values, and usage requirements. This command is your first step if you're unsure about launching options.
+
+
+## 3. Step-by-Step: Launching keel
+
+<Steps>
+<Step title="Open your terminal">
+Open a terminal or command prompt where Python 3 is installed and accessible.
+</Step>
+<Step title="Run keel with required parameters">
+Enter the command using your chosen username and mode, for example:
+```bash
+python3 keel.py -u alice -m regular
+```
+This starts keel tracking the processes owned by user "alice".
+</Step>
+<Step title="Interact with the UI">
+Once launched, keel will display a centered title indicating the current mode and user, such as:
+
+`Choose a process to kill and hit enter, user: alice, mode: Regular`
+
+Use your keyboard to navigate the list, select processes, and kill them using the Enter key.
+</Step>
+<Step title="Exit keel">
+Press the `q` key at any time to quit the program safely.
+</Step>
+</Steps>
+
+
+## 4. What Happens When keel Starts
+
+- keel initializes the terminal UI using the ncurses library.
+- The mode and user you specify dictate what list is populated:
+  - **Regular mode** shows processes owned by the user.
+  - **Connections mode** lists active network connections.
+- You navigate the list using arrow keys (up/down) to highlight items.
+- Pressing **Enter** kills the selected process or closes the connection (depending on mode).
+- The title bar updates dynamically to remind you of current context (mode and user).
+
+
+## 5. Practical Tips for Your First Run
+
+- When specifying a username, ensure it exists on the system, or default `root` will be used.
+- Choose `regular` mode initially to get comfortable with the UI and process management.
+- Use `connections` mode when you want to inspect or kill network connections.
+- If the list appears empty, verify that the specified user has running processes or open connections.
+
+
+## 6. Common Pitfalls and Troubleshooting
+
+<AccordionGroup title="Startup Troubleshooting">
+<Accordion title="The UI does not display or freezes">
+- Ensure you run keel inside a compatible terminal emulator that supports curses (e.g., Linux terminal, macOS Terminal, Windows WSL).
+- If on Windows Command Prompt and you face issues, try running inside WSL or a Linux VM.
+</Accordion>
+<Accordion title="No processes or connections appear">
+- Verify that the username is correct and corresponds to an active user on your system.
+- For connections mode, verify that your system has open network connections.
+</Accordion>
+<Accordion title="Permission errors occur">
+- Running as a standard user may limit process visibility. Try running the command with elevated privileges (e.g., `sudo` on Linux/macOS).
+- Killing system or other users' processes may require root permissions.
+</Accordion>
+<Accordion title="Help output is unclear">
+- The help message is minimal; refer to this documentation or the README for detailed guidance.
+</Accordion>
+</AccordionGroup>
+
+
+## 7. Next Steps After First Launch
+
+- After successfully running keel for the first time, explore the interactive navigation:
+  - Use arrow keys to move through the list.
+  - Highlight processes or connections you want to kill and press Enter.
+- Explore switching modes and users (future features pending development).
+- Refer to the [First Successful Usage & Validation](/getting-started/first-steps/first-successful-usage) guide for how to confirm actions and interpret results.
+- For extended control and filtering, consult the guides on [Filtering Processes by User](/guides/process-management/filter-users) and [Killing Processes from the Interface](/guides/process-management/process-control).
+
+
+---
+
+## Additional Help and Resources
+
+- [keel GitHub Repository](https://github.com/modelorona/keel) – Source code and community support.
+- [System Requirements & Prerequisites](/getting-started/setup-installation/system-requirements) – Ensure your environment meets keel's needs.
+- [Installing keel](/getting-started/setup-installation/installing-keel) - For installation and setup before first run.
+- [Troubleshooting Startup & Usage](/getting-started/first-steps/common-setup-issues) – For common runtime issues.
+
+
+---
+
+This guide equips you to get keel up and running interactively, empowering you to monitor and manage processes confidently with a streamlined terminal interface.

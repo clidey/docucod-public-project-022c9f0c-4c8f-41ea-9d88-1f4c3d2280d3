@@ -1,0 +1,121 @@
+---
+title: "First Successful Usage & Validation"
+description: "Steps users through basic navigation, highlighting processes, and killing a process using the interface. Highlights validation cues to confirm keel is operating correctly, and how to return to the command line safely."
+---
+
+# First Successful Usage & Validation
+
+This guide walks you through your first successful use of keel's terminal interface, focusing on process navigation, killing a process, and validating that the application is running correctly. By the end of this walkthrough, you will confidently manage processes using keel and safely exit back to your command line.
+
+---
+
+## 1. Navigating the Process List
+
+Once you launch keel with the required parameters, you will see a list of processes owned by the chosen user (or root by default). The terminal-based interface allows you to:  
+
+- **Use the arrow keys:**
+  - `↑` and `↓` to move the highlight up and down through the process list.
+  - The highlight clearly indicates the currently selected process.
+
+- **Scroll behavior:**
+  - If the list of processes exceeds your terminal view, the interface scrolls automatically to keep the highlighted process visible.
+
+### Practical Tip
+
+When navigating, make sure the process you want to target is highlighted before proceeding to kill it. The highlight is shown by inverse colors or clear visual contrast.
+
+---
+
+## 2. Killing a Process
+
+With a process highlighted, you can terminate it immediately:
+
+1. Press the `Enter` key.
+2. keel will attempt to kill the process by its PID.
+3. The killed process will be removed instantly from the list.
+4. Remaining processes below the removed one will shift upward to fill the space.
+
+### What to Expect
+
+- If the kill operation succeeds, the process disappears from the display.
+- If it fails (e.g., due to permissions or if the process ended independently), an error is logged internally (not shown on screen).
+
+### Important Considerations
+
+- You cannot kill the keel process itself — attempting this will raise an error internally.
+- If no more processes remain after killing, keel will exit automatically, returning you safely to your command line.
+
+---
+
+## 3. Validating keel is Operating Correctly
+
+### Visual Confirmation
+
+- The terminal window displays a clear title bar at the top showing:
+  - The current mode (e.g., "Regular" for normal processes or "Connections" if in network mode).
+  - The active system username being filtered.
+  - Instructions like 'Choose a process to kill and hit enter'.
+
+- The process list updates dynamically on killing and navigation.
+
+- The highlight moves in response to your arrow key presses.
+
+### Functional Confirmation
+
+- Killing a process removes it from the list immediately.
+- The program exits cleanly if the list empties, returning your prompt.
+
+You can verify by checking your system's process list separately (e.g., `ps` or `top`) to confirm the targeted process has ended.
+
+---
+
+## 4. Exiting keel Safely
+
+- At any time, press the `q` key to quit keel and return to your command line.
+- Exiting preserves your terminal state and avoids lingering artifacts.
+
+---
+
+## 5. Troubleshooting Common First-Use Issues
+
+<AccordionGroup title="Troubleshooting First Usage">
+<Accordion title="Process List Does Not Appear">
+- Confirm you launched keel with the correct parameters for username and mode. Refer to `python3 keel.py -h` for help.
+- Ensure the user you specified actually owns running processes.
+- If your terminal size is too small, try enlarging the window.
+</Accordion>
+<Accordion title="Unable to Kill a Process">
+- Verify you have the necessary permissions to kill processes owned by the user.
+- Check if the process ended by other means before your kill attempt.
+- See if keel’s log file (`output.log`) contains relevant error messages.
+</Accordion>
+<Accordion title="Highlight Not Moving as Expected">
+- Make sure you are using the arrow keys; other keys won’t navigate.
+- Confirm your terminal supports ncurses fully.
+- Resize your terminal if the highlight disappears outside view.
+</Accordion>
+</AccordionGroup>
+
+---
+
+## 6. Next Steps
+
+- Experiment with switching modes and users by restarting keel with different parameters (`-u` for username, `-m` for mode).
+- See the [Running keel for the First Time](/getting-started/first-steps/running-keel) guide for detailed launch instructions.
+- Visit [Killing Processes from the Interface](/guides/process-management/process-control) to deepen your control techniques.
+
+---
+
+## Example Command to Run keel for Your First Operation
+
+```bash
+python3 keel.py -u root -m regular
+```
+
+Replace `root` with your target username and `regular` with `connections` if you want to manage network connections.
+
+---
+
+By carefully navigating, selecting, and killing processes with keel’s intuitive interface, you ensure swift, controlled management of your system tasks, returning a clean and responsive terminal experience every time.
+
+---

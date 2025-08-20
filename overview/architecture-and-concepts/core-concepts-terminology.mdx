@@ -1,0 +1,181 @@
+---
+title: "Core Concepts & Terminology"
+description: "Defines key terms such as 'process', 'PID', 'mode', 'user filter', and 'connection'. Explains the user interaction model and what it means to 'highlight' or 'kill' a process in glacier."
+---
+
+# Core Concepts & Terminology
+
+Understanding keel starts with familiarizing yourself with the key terms and interaction patterns that shape how you use the tool efficiently and effectively. This page breaks down the essential vocabulary and concepts so you can navigate keel confidently and optimize your workflow.
+
+---
+
+## What Is a Process?
+
+In keel, a *process* is any executable instance running on your system, identified uniquely by its Process ID (PID). Processes may be user applications, system services, or network-related tasks.
+
+- Each process has a **PID** which is a number that uniquely identifies it during its lifetime.
+- Processes may be owned by different **users** — keel shows processes filtered by these users to focus your view.
+
+### Why Processes Matter in keel
+The whole point of keel is to present processes so you can easily locate and terminate (kill) those that are unnecessary or problematic, improving system health and security.
+
+---
+
+## Understanding PID (Process ID)
+
+The **PID** is a numeric identifier assigned by the operating system to each running process. When you want to terminate a process, keel uses this PID to target exactly the right process.
+
+- PIDs are essential because process names can be duplicated or generic.
+- You can think of the PID as the process's address within your machine’s memory space.
+
+### Example
+If a process named `python3` is running multiple times, each instance will have a different PID:
+
+```text
+PID: 1234 - python3
+PID: 5678 - python3
+```
+
+Keel displays this so you can pick the exact one you want to kill.
+
+---
+
+## What Is a Mode?
+
+A **mode** in keel defines what kind of information you are viewing and interacting with at any moment. Different modes tailor the displayed data and available actions.
+
+### Current Modes:
+
+- **Regular Mode**: Lists all system processes owned by the selected user.
+- **Connections Mode**: Shows open network connections (TCP, UDP, Unix sockets, etc.) related to processes.
+
+### Why Modes Matter
+Modes focus your task by filtering the system data keel presents. For example:
+
+- In Regular Mode, you focus on killing processes.
+- In Connections Mode, you can view (and potentially close) open connections.
+
+This mode-driven approach streamlines workflows so you manage what’s most relevant to your current goal.
+
+---
+
+## What Is a User Filter?
+
+Keel lets you filter visible processes or connections by **user ownership**.
+
+- When you specify a username (or default to `root`), keel narrows down to just the processes or connections owned by that user.
+- This helps reduce clutter, letting you focus on your own processes or those of specific system users.
+
+### Example
+Filtering by user `alice` will show only processes and connections running under Alice’s credentials.
+
+---
+
+## What Are Connections?
+
+Connections refer to the network sockets open on your machine, linked to running processes.
+
+- These can be TCP, UDP, Unix sockets, or other protocols.
+- Keel's Connections Mode lists these sockets allowing you to identify which processes hold which connections.
+
+### Practical Use
+If you suspect a rogue network connection causing issues, viewing and closing it in Connections Mode helps you quickly isolate and terminate it.
+
+---
+
+## User Interaction Model in keel
+
+Keel's design revolves around a simple, keyboard-driven interface inside your terminal window managed with curses. Here are the primary interaction concepts:
+
+### 1. Navigating and Highlighting
+
+- Upon launch, keel displays a list (processes or connections) line-by-line with each item showing PID and name or connection details.
+- Use arrow keys to move the cursor and highlight the desired item.
+- Highlighting means the line under the cursor is visually distinct so you know which is selected.
+
+### 2. Killing a Process or Closing a Connection
+
+- While an item is highlighted, pressing Enter will attempt to kill that process or close that connection.
+- Keel immediately removes the item from the list upon success.
+- You receive no additional prompt, so be certain before pressing Enter.
+
+<Tip>
+Always double-check the PID and process name before terminating to avoid killing essential system processes.
+</Tip>
+
+### 3. Switching Modes and Users (Future Capability)
+
+- While current releases have some placeholders, future versions will let you switch modes and users interactively.
+- Pressing certain keys like `m` or `u` will bring up input boxes to change the mode or username filter.
+
+---
+
+## Summary of Key Terms
+
+| Term           | Meaning                                                                                 |
+|----------------|-----------------------------------------------------------------------------------------|
+| Process        | Running instance of a program, identified by a PID and owned by a user                   |
+| PID            | Unique numeric identifier for a process                                                 |
+| Mode           | Display context in keel - `regular` for standard processes, `connections` for sockets   |
+| User Filter    | Filters visible processes/connections by owner                                         |
+| Connection     | Active network socket associated with a process                                        |
+| Highlight      | Visual selection of an item in keel's interface to operate on                           |
+| Kill           | Action to terminate a process or close a network connection                             |
+
+---
+
+## Practical Walkthrough
+
+Imagine you are a system administrator needing to halt a runaway process owned by user `bob`:
+
+1. Start keel with `-u bob -m regular` to show only Bob’s processes.
+2. Use arrow keys to highlight the misbehaving process (e.g., `1234 : myapp`).
+3. Press Enter to kill it instantly.
+4. The list updates, confirming the process is gone.
+
+If instead you want to see Bob’s active network connections, start with `-u bob -m connections` and browse through open sockets the same way.
+
+---
+
+## Common Pitfalls & Best Practices
+
+### Pitfalls
+- **Killing system-critical processes accidentally:** Always verify PID and process name to avoid system instability.
+- **Operating without appropriate user permissions:** Killing processes owned by other users usually requires elevated privileges.
+
+### Best Practices
+- Start by filtering to your user to reduce risks.
+- Use Connections Mode to identify network-related issues before killing processes.
+- Leverage keel’s keyboard shortcuts for a fluid experience.
+
+---
+
+By mastering these core concepts and terms, you gain confidence and precision in using keel, empowering you to swiftly manage system processes and connections with clarity and control.
+
+For deeper operational workflows and getting started guidance, explore the related documentation sections linked below.
+
+---
+
+## Related Documentation
+
+- [What is keel?](../getting-started/product-intro) – Comprehensive product introduction
+- [Target Audience & Use Cases](../getting-started/use-cases-audience) – Who benefits most from keel and how
+- [Core Features at a Glance](../getting-started/feature-overview) – Summary of capabilities
+- [Launching keel: Core Usage Workflow](../../guides/getting-started/launch-basic) – Step-by-step usage
+
+---
+
+## Source Code Reference
+
+For full implementation details of these concepts:
+
+- UI and interaction handling: [`keel/ui.py`](https://github.com/modelorona/keel/blob/main/keel/ui.py)
+- Process and mode management: [`keel/mode.py`](https://github.com/modelorona/keel/blob/main/keel/mode.py)
+- Process operations using `psutil`: [`keel/util_ps.py`](https://github.com/modelorona/keel/blob/main/keel/util_ps.py)
+
+
+---
+
+## Next Steps
+
+Ready to put these concepts into practice? Head over to **Installing keel** and **Running keel for the First Time** guides to get up and running rapidly.

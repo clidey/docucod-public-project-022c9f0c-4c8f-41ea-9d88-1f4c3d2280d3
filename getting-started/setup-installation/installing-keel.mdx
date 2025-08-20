@@ -1,0 +1,224 @@
+---
+title: "Installing keel"
+description: "Guides users through installation from PIP, including step-by-step commands and recommendations for best practices. Covers both global and virtual environment installations to accommodate different user preferences."
+---
+
+# Installing keel
+
+This guide walks you through installing **keel** using Python's package manager **pip**. You'll learn how to install keel either globally or within a virtual environment, ensuring flexibility based on your preferences and system setup.
+
+---
+
+## 1. Prerequisites & System Requirements
+
+Before installing keel, ensure your environment meets these requirements:
+
+- **Python Version**: Python 3.x must be installed (3.6 or higher recommended).
+- **Operating System**: Compatible with most Unix-like systems (Linux, macOS). Windows users may need additional setup for `ncurses` compatibility.
+- **Dependencies**:
+  - The `psutil` library for process management (automatically installed with keel).
+  - `ncurses` support for terminal UI (commonly pre-installed on Unix systems).
+
+<Tip>
+Verify your Python version by running:
+
+```bash
+python3 --version
+```
+Install pip if missing:
+
+```bash
+python3 -m ensurepip --upgrade
+```
+</Tip>
+
+---
+
+## 2. Installation Instructions
+
+### Option A: Installing Globally
+
+This installs keel for all users on your system.
+
+<Steps>
+<Step title="Run pip install">
+Open your terminal and run:
+
+```bash
+pip install keel
+```
+
+This downloads and installs keel version 0.1 and its dependencies.
+</Step>
+<Step title="Verify Installation">
+After installation, confirm keel is installed:
+
+```bash
+pip show keel
+```
+
+You should see package details including version and author.
+</Step>
+</Steps>
+
+<Warning>
+Global installation may require administrative permissions. Use `sudo` if permission denied:
+
+```bash
+sudo pip install keel
+```
+Ensure you understand permission implications for your system security.
+</Warning>
+
+### Option B: Installing Inside a Virtual Environment (Recommended)
+
+A virtual environment keeps keel isolated from other Python packages.
+
+<Steps>
+<Step title="Create a virtual environment">
+
+```bash
+python3 -m venv keel-env
+```
+
+This creates a directory `keel-env` with isolated Python.
+</Step>
+<Step title="Activate the environment">
+
+- On macOS/Linux:
+
+```bash
+source keel-env/bin/activate
+```
+
+- On Windows:
+
+```bash
+keel-env\Scripts\activate
+```
+</Step>
+<Step title="Install keel">
+
+Now install keel inside the activated environment:
+
+```bash
+pip install keel
+```
+</Step>
+<Step title="Verify installation">
+Run:
+
+```bash
+pip list | grep keel
+```
+
+You should see `keel` listed with the installed version.
+</Step>
+</Steps>
+
+<Tip>
+Use a virtual environment to avoid version conflicts with other Python projects and to maintain system cleanliness.
+</Tip>
+
+---
+
+## 3. Best Practices and Recommendations
+
+- Prefer virtual environments, especially if working on multiple Python projects.
+- Regularly update keel and dependencies:
+
+```bash
+pip install --upgrade keel
+```
+- Use `pip freeze > requirements.txt` inside your virtual environment to track dependencies for reproducible setups.
+
+<Check>
+Keep your Python and pip tools up to date to avoid compatibility issues.
+
+```bash
+pip install --upgrade pip setuptools
+```
+</Check>
+
+---
+
+## 4. Post-Installation Verification
+
+After installing:
+
+1. Confirm installation by checking keel’s presence:
+
+```bash
+pip show keel
+```
+
+Ensure it reports the expected version and metadata.
+
+2. Test keel functionality by running the help command:
+
+```bash
+python3 -m keel.keel -h
+```
+
+You should see the usage details for keel, including parameters `-u` (username) and `-m` (mode).
+
+<Tip>
+Since keel is not yet fully packaged as a standalone executable, you will launch it via Python using the `keel.py` module.
+</Tip>
+
+---
+
+## 5. Troubleshooting Common Installation Issues
+
+<AccordionGroup title="Common Installation Problems and Solutions">
+<Accordion title="Permission Denied Errors">
+If you encounter permission errors during global install, try:
+
+```bash
+sudo pip install keel
+```
+
+Or install inside a virtual environment to avoid system-wide permissions.
+</Accordion>
+<Accordion title="pip Not Found or Outdated">
+Ensure pip is installed and updated:
+
+```bash
+python3 -m ensurepip --upgrade
+pip install --upgrade pip
+```
+</Accordion>
+<Accordion title="Missing Dependencies or Compilation Errors">
+Check if your system has development tools installed (`build-essential` on Linux, Xcode tools on macOS).
+
+Dependencies like `psutil` may require compilation. Installing these tools resolves errors.
+</Accordion>
+<Accordion title="Running keel Shows Module Not Found">
+Make sure you run keel with Python 3 and the package installed in the correct environment.
+
+Activate your virtual environment if using one.
+</Accordion>
+</AccordionGroup>
+
+---
+
+## 6. Next Steps
+
+- Proceed to [Running keel for the First Time](/getting-started/first-steps/running-keel) to learn how to launch and operate keel.
+- Explore [Troubleshooting Installation Issues](/getting-started/setup-installation/troubleshooting-installation) for in-depth problem solving.
+- Visit the [System Requirements & Prerequisites](/getting-started/setup-installation/system-requirements) page to verify your environment setup.
+
+---
+
+## Additional Resources
+
+- **keel GitHub Repository**: https://github.com/modelorona/keel
+- **Python psutil Library Documentation**: https://psutil.readthedocs.io/
+
+---
+
+By following this guide, you'll have keel installed correctly, allowing you to efficiently manage system processes and network connections through its unified terminal interface.
+
+---
+
+**End of Installation Guide**

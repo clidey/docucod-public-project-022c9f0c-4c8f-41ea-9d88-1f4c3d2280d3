@@ -1,0 +1,182 @@
+---
+title: "Command-Line Parameters and Help"
+description: "Understand how to use keel's command-line flags, including specifying users and modes. This guide explains the '-h' help option and provides practical examples for everyday usage scenarios."
+---
+
+# Using keel's Command-Line Parameters and Help
+
+Unlock the full potential of keel by mastering its command-line interface. This guide demystifies keel's command-line flags, showing you how to specify users, switch modes, and access the built-in help system. Whether you're setting keel for a quick task or configuring complex usage, the steps here ensure you succeed with confidence.
+
+---
+
+## 1. Understanding the Workflow
+
+### What This Guide Helps You Accomplish
+Learn how to use keel's command-line parameters to tailor the tool's behavior to your needs. You'll discover how to invoke help, specify users for process filtering, and switch operation modes — all critical for precise control and efficient execution.
+
+### Prerequisites
+- keel installed on your system and accessible via the command line.
+- Basic familiarity with terminal or command prompt operations.
+
+### Expected Outcome
+After completing this guide, you’ll be able to:
+- Access detailed usage help for keel's CLI.
+- Use flags to specify user filters.
+- Switch keel into different modes for targeted process and network management.
+
+### Time Estimate
+Approximately 5 minutes.
+
+### Difficulty Level
+Beginner to Intermediate.
+
+---
+
+## 2. Step-by-Step Guide to Command-Line Parameters
+
+### Accessing Help (-h or --help)
+The quickest way to understand all available command-line options is using the help flag.
+
+**Steps:**
+1. Open your terminal or command prompt.
+2. Type the following command:
+
+```bash
+keel -h
+```
+
+or equivalently:
+
+```bash
+keel --help
+```
+
+**What you should see:**
+- A neatly formatted list of all available command-line options, their descriptions, and usage examples.
+
+<Tip>
+Always start with the `-h` or `--help` flag to get the latest on keel's capabilities, especially after an update.
+</Tip>
+
+### Specifying User Filters with -u or --user
+Target specific processes owned by a given user using the user flag.
+
+**Use case:** You want to filter processes belonging to the user "alice".
+
+**Steps:**
+1. Run keel with the user parameter:
+
+```bash
+keel -u alice
+```
+
+2. keel will then display or manage processes specifically owned by alice.
+
+**Expected result:**
+- The output or operations reflect only the user-specified processes.
+
+<Tip>
+If you omit the user flag, keel operates on all users' processes by default.
+</Tip>
+
+### Selecting Operation Modes with -m or --mode
+keel supports different modes to control what scope you want to focus on, like process management or network connections.
+
+**Available modes include:**
+- `process` — Manage and view processes
+- `connections` — View network connections
+
+**Example:** To launch keel in connection viewing mode:
+
+```bash
+keel -m connections
+```
+
+**Expected result:**
+- keel opens in connections mode, displaying network sessions.
+
+<Tip>
+Combining flags is supported. For example, to view processes for a specific user:
+
+```bash
+keel -m process -u alice
+```
+
+This combination filters visible processes to those owned by "alice" and focuses on process management.
+</Tip>
+
+### Combining Multiple Parameters
+Formulate commands that combine user filters and modes to streamline your workflow.
+
+**Example:** View network connections for user "bob":
+
+```bash
+keel -m connections -u bob
+```
+
+**Result:**
+- Filters displayed data both by mode and user ownership.
+
+---
+
+## 3. Practical Examples
+
+### Example 1: Quick Help Check
+```bash
+keel -h
+```
+Displays all available command-line options and syntax.
+
+### Example 2: Filtering Processes By User "charlie"
+```bash
+keel -u charlie
+```
+Shows only processes owned by "charlie".
+
+### Example 3: Viewing Network Connections For All Users
+```bash
+keel -m connections
+```
+Launches keel in connections mode without restricting users.
+
+### Example 4: Filtering Network Connections for User "dana"
+```bash
+keel -m connections -u dana
+```
+Combines user filter and mode selection.
+
+---
+
+## 4. Troubleshooting & Tips
+
+### Common Issues
+- **Help flag shows no output or unknown flag error**: Ensure you run the exact command (`keel -h`), and that keel is properly installed and in your system’s PATH.
+- **User filter returns no results:** Confirm the username is correct and that user-owned processes or connections exist.
+- **Mode parameter not recognized:** Double-check spelling; supported modes are limited to `process` and `connections`.
+
+### Best Practices
+- Always check available options via `-h` after updates.
+- Use combined parameters to focus your views and speed up diagnostics.
+- When scripting with keel, use parameters explicitly to avoid ambiguity.
+
+### Performance Considerations
+Specifying users or modes can reduce output and improve performance, especially on systems with many active processes or connections.
+
+### Alternative Approaches
+If you want broader control beyond the command line, explore the GUI or supported management integrations documented elsewhere.
+
+---
+
+## 5. Next Steps & Related Documents
+
+- For initial setup, see [Installing and Configuring keel](/guides/getting-started/installation).
+- To understand how to launch keel through standard workflows, visit [Launching keel: Core Usage Workflow](/guides/getting-started/launch-basic).
+- Manage processes dynamically by user in [Filtering Processes by User](/guides/process-management/filter-users).
+
+By mastering these command-line flags, you lay the groundwork for faster, more precise control of keel's powerful process and connection management capabilities.
+
+---
+
+<Check>
+You have now learned to effectively use keel's command-line interface, tailoring its operation via user and mode parameters, with quick access to help. Explore further guides to deepen your mastery.
+</Check>

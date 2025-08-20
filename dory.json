@@ -1,0 +1,95 @@
+{
+  "background": {
+    "decoration": "gradient"
+  },
+  "colors": {
+    "dark": "#1E3A8A",
+    "light": "#60A5FA",
+    "primary": "#60A5FA"
+  },
+  "favicon": "/favicon.svg",
+  "fonts": {
+    "family": "Montserrat",
+    "format": "woff2",
+    "source": "https://fonts.gstatic.com/s/googlesansflex/v5/t5sJIQcYNIWbFgDgAAzZ34auoVyXkJCOvp3SFWJbN5hF8Ju1x6sKCyp0l9sI40swNJwGpVd4AZzz0v6lJ4qFXNZhGjLvDSkV4USKMo6qQzwliVdHAy9jxTDHg_ugnAakpwGc-cxgUqDCIUI.woff2"
+  },
+  "icons": {
+    "library": "fontawesome"
+  },
+  "logo": {
+    "dark": "./logo/logo.svg",
+    "light": "./logo/logo.svg"
+  },
+  "name": "keel",
+  "navigation": {
+    "tabs": [
+      {
+        "groups": [
+          {
+            "group": "Getting to Know keel",
+            "pages": [
+              "overview/getting-started/product-intro",
+              "overview/getting-started/use-cases-audience",
+              "overview/getting-started/feature-overview"
+            ]
+          },
+          {
+            "group": "Architecture \u0026 Core Concepts",
+            "pages": [
+              "overview/architecture-and-concepts/system-overview-diagram",
+              "overview/architecture-and-concepts/core-concepts-terminology",
+              "overview/architecture-and-concepts/integration-dependencies"
+            ]
+          }
+        ],
+        "tab": "Overview"
+      },
+      {
+        "groups": [
+          {
+            "group": "Setup \u0026 Installation",
+            "pages": [
+              "getting-started/setup-installation/system-requirements",
+              "getting-started/setup-installation/installing-keel",
+              "getting-started/setup-installation/troubleshooting-installation"
+            ]
+          },
+          {
+            "group": "First Run \u0026 Initial Usage",
+            "pages": [
+              "getting-started/first-steps/running-keel",
+              "getting-started/first-steps/first-successful-usage",
+              "getting-started/first-steps/common-setup-issues"
+            ]
+          }
+        ],
+        "tab": "Getting Started"
+      },
+      {
+        "groups": [
+          {
+            "group": "Getting Started",
+            "pages": [
+              "guides/getting-started/installation",
+              "guides/getting-started/launch-basic",
+              "guides/getting-started/help-and-parameters"
+            ]
+          },
+          {
+            "group": "Process \u0026 Connection Management",
+            "pages": [
+              "guides/process-management/filter-users",
+              "guides/process-management/process-control",
+              "guides/process-management/view-connections"
+            ]
+          }
+        ],
+        "tab": "Guides"
+      }
+    ]
+  },
+  "styling": {
+    "codeblocks": "dark",
+    "eyebrows": "breadcrumbs"
+  }
+}

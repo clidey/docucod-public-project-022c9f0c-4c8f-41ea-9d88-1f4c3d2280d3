@@ -1,0 +1,139 @@
+---
+title: "Killing Processes from the Interface"
+description: "Master the process of selecting and killing processes directly from keel's ncurses UI. Learn about safe usage patterns, confirmation prompts, and tips to avoid accidental termination."
+---
+
+# Killing Processes from the Interface
+
+Master the process of safely selecting and killing processes directly from keel's ncurses UI. This guide empowers you to manage processes confidently while avoiding accidental terminations.
+
+---
+
+## 1. Workflow Overview
+
+### Task Description
+This guide helps you identify, select, and terminate running processes using keel's interactive text-based UI efficiently and safely.
+
+### Prerequisites
+- keel installed and running on your system
+- Familiarity with basic navigation within keel’s ncurses UI
+- Appropriate permissions to terminate processes (usually requires root or the process owner's rights)
+
+### Expected Outcome
+After following this guide, you will be able to:
+- Navigate to the process list within keel
+- Select individual or multiple processes
+- Issue kill commands with confirmation prompts
+- Understand safe practices to avoid terminating critical system processes
+
+### Time Estimate
+Approximately 5 minutes for a first-time user.
+
+### Difficulty Level
+Beginner to Intermediate — suitable for new users with basic command line familiarity.
+
+---
+
+## 2. Step-by-Step Instructions
+
+<Steps>
+<Step title="Launch keel and Navigate to the Process List">
+Open keel from your terminal. Use the keyboard navigation to reach the section displaying active processes. This is usually the default screen upon launching keel.
+
+**Expected Result:**
+You see a list of running processes with details such as PID, user, CPU, and memory usage.
+</Step>
+
+<Step title="Select the Process to Kill">
+Use the arrow keys or other designated navigation controls to highlight the process you want to terminate. You can scroll through the list to find the specific PID or process name.
+
+**Tip:**
+Consider using filters or search to quickly locate a process if keel supports these features (refer to "Filtering Processes by User" guide).
+
+**Expected Result:**
+Currently highlighted process is clearly visible and selected.
+</Step>
+
+<Step title="Initiate the Kill Command">
+Press the keyboard shortcut or command key assigned to kill a process (for example, often `k` or another letter specified by keel’s interface).
+
+**Expected Result:**
+A confirmation prompt appears asking you to confirm the kill action.
+</Step>
+
+<Step title="Confirm the Kill Action">
+Read the confirmation prompt carefully. Confirm the action if you are certain by pressing the indicated key (such as `y` or `Enter`). If you reconsider, cancel by pressing `n` or the escape key.
+
+**Important:**
+Confirmation prevents accidental termination, protecting system stability.
+
+**Expected Result:**
+The selected process is terminated, and the process list updates accordingly.
+</Step>
+
+<Step title="Verify Process Termination">
+Observe the updated process list or use a system process monitor (`ps`, `top`, or `htop`) to confirm the process is no longer running.
+
+**Expected Result:**
+The terminated process disappears from the list.
+</Step>
+</Steps>
+
+---
+
+## 3. Practical Tips & Best Practices
+
+- **Double-check Critical Processes:** Avoid killing system-critical processes unless absolutely necessary.
+- **Use Filters:** Narrow down process lists to those you own or related to your tasks to minimize risks.
+- **Take Advantage of Confirmation:** Never skip confirmation prompts; they are there to protect your system.
+- **Consider Signal Types:** If keel supports varying kill signals, use less aggressive signals like `SIGTERM` before `SIGKILL`.
+- **Be Mindful of Permissions:** You must have proper permissions to terminate processes owned by others.
+
+---
+
+## 4. Troubleshooting
+
+<AccordionGroup title="Common Issues When Killing Processes">
+<Accordion title="Process Does Not Terminate">
+- Ensure you have the correct permissions.
+- Some processes may ignore certain signals; try a stronger signal if interface options allow.
+- The process might have already exited or restarted automatically.
+</Accordion>
+
+<Accordion title="Accidentally Killed Critical Process">
+- Immediately save any work and reboot the machine if the system becomes unstable.
+- Refrain from force killing unknown or system processes.
+- Use confirmation prompts carefully to avoid this situation.
+</Accordion>
+
+<Accordion title="The Kill Command Shortcut Doesn’t Work">
+- Check if the UI focus is correct.
+- Confirm you are using the correct key as documented by the latest version of keel.
+- Restart keel and try again.
+</Accordion>
+</AccordionGroup>
+
+---
+
+## 5. Next Steps & Related Content
+
+- Learn to **Filter Processes by User** to quickly locate the right processes: [Filtering Processes by User](/guides/process-management/filter-users)
+- Explore **Viewing Network Connections** for deeper process insights: [Viewing Network Connections](/guides/process-management/view-connections)
+- Review keel installation and configuration for optimal use: [Installing and Configuring keel](/guides/getting-started/installation)
+
+---
+
+## Summary
+
+Mastering process termination directly within keel’s interface provides a powerful and efficient way to manage running tasks without leaving the application. Following safe practices and the guided confirmation steps ensure you avoid accidental system disruption.
+
+For comprehensive process management, combine this skill with filtering and connection viewing features.
+
+---
+
+For the latest updates and source reference, visit the keel repository:
+
+[keel GitHub Repository](https://github.com/modelorona/keel)
+
+
+---
